@@ -1,16 +1,14 @@
-
-import React, { useState } from "react";
+import React from "react";
+import { Home, Info, Layers, Package, Map, Phone } from "lucide-react";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About us", href: "#about" },
-    { label: "Our services", href: "#services" },
-    { label: "Travel Packages", href: "#packages" },
-    { label: "Destinations", href: "#destinations" },
-    { label: "Contact Us", href: "#contact" },
+    // { label: "Home", href: "#home", icon: Home },
+    { label: "About", href: "#about", icon: Info },
+    { label: "Services", href: "#services", icon: Layers },
+    // { label: "Packages", href: "#packages", icon: Package },
+    { label: "Destinations", href: "#destinations", icon: Map },
+    { label: "Contact", href: "#contact", icon: Phone },
   ];
 
   return (
@@ -30,16 +28,14 @@ const Navbar = () => {
               <span className="block font-medium text-slate-900 text-lg tracking-tight">
                 Trip Planner
               </span>
-
               <span className="block text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
-              Plan your trip with us
+                Plan your trip with us
               </span>
             </div>
           </a>
 
-          {/* Right Side */}
+          {/* Right Side (Desktop Links Only) */}
           <div className="flex items-center gap-8">
-            {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
               {navLinks.map((link) => (
                 <a
@@ -51,67 +47,44 @@ const Navbar = () => {
                 </a>
               ))}
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
-              aria-label="Toggle Menu"
-            >
-              <span
-                className={`w-6 h-0.5 bg-gray-900 transition-transform duration-300 ${
-                  isOpen ? "rotate-45 translate-y-2" : ""
-                }`}
-              />
-
-              <span
-                className={`w-6 h-0.5 bg-gray-900 transition-opacity duration-300 ${
-                  isOpen ? "opacity-0" : ""
-                }`}
-              />
-
-              <span
-                className={`w-6 h-0.5 bg-gray-900 transition-transform duration-300 ${
-                  isOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}
-              />
-            </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Bottom Navigation */}
+      {/* Mobile Bottom Navigation with Icons */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
         <nav
           className="
             flex items-center justify-around
             bg-white
             border-t border-gray-200
-            px-2 py-2
+            px-1 py-2
             shadow-lg
           "
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="
-                flex flex-1 flex-col
-                items-center justify-center
-                gap-1 py-2
-                text-gray-500
-                hover:text-gray-950
-                active:text-gray-950
-                transition-colors
-              "
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-0 transition-opacity" />
-
-              <span className="text-[9px] font-medium uppercase tracking-wider text-center">
-                {link.label}
-              </span>
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const IconComponent = link.icon;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className="
+                  flex flex-1 flex-col
+                  items-center justify-center
+                  gap-1 py-1
+                  text-gray-500
+                  hover:text-gray-950
+                  active:text-gray-950
+                  transition-colors
+                "
+              >
+                <IconComponent className="w-5 h-5" />
+                <span className="text-[9px] font-medium uppercase tracking-wider text-center truncate w-full px-0.5">
+                  {link.label}
+                </span>
+              </a>
+            );
+          })}
         </nav>
       </div>
     </>
@@ -119,4 +92,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
