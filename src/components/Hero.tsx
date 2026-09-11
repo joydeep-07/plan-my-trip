@@ -18,12 +18,56 @@ const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const heroImageRef = useRef<HTMLImageElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
+  const aboutTextRef = useRef<HTMLHeadingElement | null>(null);
 
   const stats: StatItem[] = [
     { target: 200, suffix: "+", label: "Happy Customer" },
     { target: 65, suffix: "+", label: "Top Hotels" },
     { target: 250, suffix: "+", label: "Experienced Guide" },
   ];
+
+ const aboutWords = [
+   "We",
+   "are",
+   "a",
+   "passionate",
+   "team",
+   "of",
+   "travel",
+   "enthusiasts",
+   "dedicated",
+   "to",
+   "making",
+   "your",
+   "travel",
+   "dreams",
+   "come",
+   "true",
+   "with",
+   "memorable",
+   "journeys",
+   "and",
+   "unforgettable",
+   "experiences",
+   "around",
+   "the",
+   "world.",
+ ];
+
+  const splitTextToSpans = (words: string[]) => {
+    return words.map((word, i) => (
+      <span key={i} className="inline-block whitespace-nowrap mr-[0.25em]">
+        {word.split("").map((char, charIndex) => (
+          <span
+            key={charIndex}
+            className="inline-block opacity-20 text-gray-400 transition-colors duration-100"
+          >
+            {char}
+          </span>
+        ))}
+      </span>
+    ));
+  };
 
   useGSAP(
     () => {
@@ -45,7 +89,7 @@ const Hero: React.FC = () => {
       gsap.set(".hero-footer-item", { y: 20, opacity: 0 });
 
       const heroTl = gsap.timeline({
-        defaults: { ease: "power3.inOut" },
+        defaults: { ease: "power2.inOut" },
       });
 
       heroTl
@@ -125,39 +169,27 @@ const Hero: React.FC = () => {
       }
 
       // ==========================================
-      // 2. ABOUT + STATS SCROLLTRIGGER ANIMATION
+      // 2. ABOUT TEXT SCROLL REVEAL ANIMATION (Opacity & Color only)
       // ==========================================
-      gsap.set(".about-title-line", { yPercent: 120 });
-      gsap.set(".stat-card", { y: 35, opacity: 0 });
-
-      const aboutTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: aboutRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-        defaults: { ease: "power3.inOut" },
-      });
-
-      aboutTl
-        .to(".about-title-line", {
-          yPercent: 0,
-          duration: 0.85,
-          stagger: 0.1,
-        })
-        .to(
-          ".stat-card",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            stagger: 0.1,
-            ease: "power3.out",
+      if (aboutTextRef.current) {
+        const letters = aboutTextRef.current.querySelectorAll("span span");
+        gsap.to(letters, {
+          opacity: 1,
+          color: "#111827", // text-gray-900 equivalent
+          stagger: 0.02,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: aboutRef.current,
+            start: "top 75%",
+            end: "bottom 60%",
+            scrub: 1,
           },
-          "-=0.4",
-        );
+        });
+      }
 
-      // Independent Counter Trigger for Statistics
+      // ==========================================
+      // 3. COUNTER TRIGGER FOR STATISTICS
+      // ==========================================
       ScrollTrigger.create({
         trigger: aboutRef.current,
         start: "top 80%",
@@ -250,34 +282,34 @@ const Hero: React.FC = () => {
       {/* About & Stats Section */}
       <div
         ref={aboutRef}
-        className="grid grid-cols-1 items-start gap-12 md:px-8 lg:grid-cols-12 mt-16"
+        className="mt-16 flex flex-col items-start gap-12 md:px-8 lg:flex-row"
       >
-        <div className="space-y-5 lg:col-span-5 overflow-hidden">
+        {/* About Text */}
+        <div className="w-full space-y-5 lg:w-[58.333%]">
           <span className="about-label block text-xs font-medium uppercase tracking-[0.2em] text-gray-400">
             About us
           </span>
 
-          <h2 className="max-w-lg text-3xl font-medium leading-tight tracking-[-0.03em] text-gray-900 sm:text-4xl">
-            <span className="about-title-line block transform-gpu will-change-transform">
-              We are a passionate team of travel enthusiasts dedicated to making
-            </span>
-            <span className="about-title-line block transform-gpu will-change-transform text-gray-400 mt-1">
-              your travel dreams come true.
-            </span>
+          <h2
+            ref={aboutTextRef}
+            className="flex flex-wrap grayscale text-3xl font-medium leading-tight tracking-[-0.03em] sm:text-4xl"
+          >
+            {splitTextToSpans(aboutWords)}
           </h2>
         </div>
 
         {/* Stat Boxes */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:col-span-7">
+        <div className="flex w-full gap-3 sm:gap-4 lg:w-[41.667%]">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="stat-card group flex flex-col justify-between rounded-sm border border-gray-200 bg-white p-5 transition-colors duration-300 sm:p-6 transform-gpu will-change-[transform,opacity]"
+              className="stat-card group flex min-w-0 flex-1 flex-col justify-between rounded-sm border border-gray-200 bg-white p-5 transition-colors duration-300 sm:p-6"
             >
-              <div className="hidden md:flex mb-2 items-start justify-between">
+              <div className="mb-2 hidden items-start justify-between md:flex">
                 <span className="text-xs font-medium text-gray-400">
                   0{index + 1}
                 </span>
+
                 <span className="h-2 w-2 rounded-full bg-blue-600 opacity-20 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
 
@@ -286,7 +318,7 @@ const Hero: React.FC = () => {
                   <span
                     data-target={stat.target}
                     data-suffix={stat.suffix}
-                    className="stat-number text-3xl font-normal tracking-tight text-gray-900 transition-colors duration-300 sm:text-4xl"
+                    className="stat-number text-3xl font-normal tracking-tight text-gray-900 transition-colors duration-300 sm:text-3xl"
                   >
                     0{stat.suffix}
                   </span>
