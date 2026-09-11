@@ -1,4 +1,6 @@
 import kashmir from "../assets/images/kashmir.jpg";
+import Navbar from "../layouts/Navbar";
+import Search from "./Search";
 
 const Hero = () => {
   return (
@@ -16,32 +18,19 @@ const Hero = () => {
           {/* Cinematic Gradient Overlays */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60"></div>
 
+          {/* Navbar Positioned Properly Over the Hero Container */}
+          <Navbar />
+
           {/* Hero Content Container */}
-          <div className="relative z-10 flex flex-col justify-between h-full p-6 md:p-12 lg:p-16 text-white box-border">
+          <div className="relative z-10 flex flex-col justify-between h-full p-6 md:p-12 lg:p-16 text-white box-border pt-24 md:pt-28">
             {/* Top/Middle Section: Main Heading & Glass Search Bar */}
-            <div className="flex flex-col items-center text-center mt-12 md:mt-16">
+            <div className="flex flex-col items-center text-center mt-6 md:mt-10">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl leading-[1.15] mb-8 drop-shadow-sm">
                 Begin your dream journey with our expert guidance and support
               </h1>
 
               {/* Refined Glassmorphism Search Bar */}
-              <div className="flex flex-col md:flex-row items-center justify-between bg-white/10 backdrop-blur-xl p-2 rounded-2xl md:rounded-full border border-white/20 text-sm max-w-2xl w-full shadow-lg gap-2 md:gap-0">
-                <div className="px-5 py-2.5 text-white/90 md:border-r border-white/20 flex items-center justify-between gap-3 w-full md:w-auto cursor-pointer hover:text-white transition">
-                  <span className="text-gray-300">Search destination</span>
-                  <span className="text-xs opacity-75">▼</span>
-                </div>
-                <div className="px-5 py-2.5 text-white/90 md:border-r border-white/20 flex items-center justify-between gap-3 w-full md:w-auto cursor-pointer hover:text-white transition">
-                  <span className="text-gray-300">Date destination</span>
-                  <span className="text-xs opacity-75">▼</span>
-                </div>
-                <div className="px-5 py-2.5 text-white/90 flex items-center justify-between gap-3 w-full md:w-auto cursor-pointer hover:text-white transition">
-                  <span className="text-gray-300">Trip type</span>
-                  <span className="text-xs opacity-75">▼</span>
-                </div>
-                <button className="bg-white text-gray-950 font-semibold px-7 py-3 rounded-xl md:rounded-full hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md w-full md:w-auto">
-                  Explore
-                </button>
-              </div>
+             <Search/>
             </div>
 
             {/* Bottom Section: Location, Subtext, and Explore More */}
