@@ -24,7 +24,7 @@ const Search: React.FC<SearchProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`h-14 flex items-center bg-white/10 backdrop-blur-xl px-4 rounded-2xl md:rounded-full border border-white/20 text-sm w-3xl shadow-lg ${className}`}
+      className={`h-14 flex items-center bg-white/10 backdrop-blur-xl px-4 rounded-2xl md:rounded-full border border-white/20 text-sm w-xl shadow-lg ${className}`}
     >
       <SearchIcon className="w-4 h-4 text-white/70 shrink-0" />
 

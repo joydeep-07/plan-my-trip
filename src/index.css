@@ -3,3 +3,34 @@
 ::-webkit-scrollbar{
   display: none;
 }
+
+@font-face {
+  font-family: "Genos";
+  src: url("./assets/fonts/genos.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Biscotti";
+  src: url("./assets/fonts/biscotti.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Saira";
+  src: url("./assets/fonts/Saira.ttf") format("truetype");
+  font-display: swap;
+}
+
+.font-heading {
+  font-family: "genos", sans-serif;
+}
+
+.font-accent{
+   font-family: "Biscotti", sans-serif;
+}
+
+*{
+   font-family: "Saira", sans-serif;
+}
+

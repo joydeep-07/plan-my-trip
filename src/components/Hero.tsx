@@ -1,114 +1,303 @@
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import kashmir from "../assets/images/kashmir.jpg";
-import Navbar from "../layouts/Navbar";
 import Search from "./Search";
 
-const Hero = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+interface StatItem {
+  target: number;
+  suffix: string;
+  label: string;
+}
+
+const Hero: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const heroImageRef = useRef<HTMLImageElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+
+  const stats: StatItem[] = [
+    { target: 200, suffix: "+", label: "Happy Customer" },
+    { target: 65, suffix: "+", label: "Top Hotels" },
+    { target: 250, suffix: "+", label: "Experienced Guide" },
+  ];
+
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // ==========================================
+      // 1. HERO LOAD ANIMATION (Angled Polygon Reveal on Right Image)
+      // ==========================================
+      gsap.set(".hero-img-container", {
+        clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+      });
+      if (heroImageRef.current) {
+        gsap.set(heroImageRef.current, { scale: 1.2 });
+      }
+      gsap.set(".hero-badge", { y: 20, opacity: 0 });
+      gsap.set(".hero-title-line", { yPercent: 200 });
+      gsap.set(".hero-desc", { y: 25, opacity: 0 });
+      gsap.set(".hero-search-wrapper", { y: 25, opacity: 0 });
+      gsap.set(".hero-footer-item", { y: 20, opacity: 0 });
+
+      const heroTl = gsap.timeline({
+        defaults: { ease: "power3.inOut" },
+      });
+
+      heroTl
+        .to(".hero-img-container", {
+          clipPath: "polygon(22% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          duration: 1.3,
+          ease: "power4.inOut",
+        })
+        .to(
+          heroImageRef.current,
+          {
+            scale: 1,
+            duration: 1.5,
+            ease: "power3.inOut",
+          },
+          "<",
+        )
+        .to(
+          ".hero-badge",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+          },
+          "-=0.9",
+        )
+        .to(
+          ".hero-title-line",
+          {
+            yPercent: 0,
+            duration: 0.85,
+            stagger: 0.1,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".hero-desc",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".hero-search-wrapper",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".hero-footer-item",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.15,
+          },
+          "-=0.4",
+        );
+
+      // Parallax effect on scroll
+      if (heroImageRef.current && heroRef.current) {
+        gsap.to(heroImageRef.current, {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      // ==========================================
+      // 2. ABOUT + STATS SCROLLTRIGGER ANIMATION
+      // ==========================================
+      gsap.set(".about-title-line", { yPercent: 120 });
+      gsap.set(".stat-card", { y: 35, opacity: 0 });
+
+      const aboutTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "power3.inOut" },
+      });
+
+      aboutTl
+        .to(".about-title-line", {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.1,
+        })
+        .to(
+          ".stat-card",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "power3.out",
+          },
+          "-=0.4",
+        );
+
+      // Independent Counter Trigger for Statistics
+      ScrollTrigger.create({
+        trigger: aboutRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          const targets = document.querySelectorAll(".stat-number");
+          targets.forEach((el) => {
+            const targetAttr = el.getAttribute("data-target");
+            const targetValue = targetAttr ? parseInt(targetAttr, 10) : 0;
+            const suffix = el.getAttribute("data-suffix") || "";
+            const obj = { val: 0 };
+
+            gsap.to(obj, {
+              val: targetValue,
+              duration: 2,
+              ease: "power2.out",
+              onUpdate: () => {
+                el.textContent = `${Math.floor(obj.val)}${suffix}`;
+              },
+            });
+          });
+        },
+      });
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <div className="w-full overflow-x-hidden">
-      {/* Hero Section */}
-      <div className="h-screen w-full p-3 md:p-4 box-border">
-        <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
-          {/* Background Image */}
-          <img
-            className="absolute inset-0 h-full w-full object-cover transform scale-105 transition-transform duration-1000"
-            src={kashmir}
-            alt="Kashmir landscape"
-          />
+    <div
+      ref={containerRef}
+      className="w-full mx-auto px-4 py-4 font-sans bg-[var(--bg-main)] overflow-hidden"
+    >
+      {/* HERO BANNER */}
+      <div
+        ref={heroRef}
+        className="relative min-h-[600px] overflow-hidden rounded-sm bg-gray-900 text-white"
+      >
+        {/* Right side angled image container */}
+        <div className="hero-img-container absolute inset-y-0 right-0 w-full md:w-[58%] lg:w-[55%] transform-gpu will-change-[clip-path] z-10">
+          <div className="relative h-full w-full overflow-hidden">
+            <img
+              ref={heroImageRef}
+              src={kashmir}
+              alt="Kashmir landscape"
+              className="h-[115%] w-full object-cover transform-gpu will-change-transform -mt-[5%]"
+            />
+            <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+          </div>
+        </div>
 
-          {/* Cinematic Gradient Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60"></div>
-
-          {/* Navbar Positioned Properly Over the Hero Container */}
-          <Navbar />
-
-          {/* Hero Content Container */}
-          <div className="relative z-10 flex flex-col justify-between h-full p-6 md:p-12 lg:p-16 text-white box-border pt-24 md:pt-28">
-            {/* Top/Middle Section: Main Heading & Glass Search Bar */}
-            <div className="flex flex-col items-center text-center mt-6 md:mt-10">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl leading-[1.15] mb-8 drop-shadow-sm">
-                Begin your dream journey with our expert guidance and support
-              </h1>
-
-              {/* Refined Glassmorphism Search Bar */}
-             <Search/>
+        {/* Left side text container */}
+        <div className="relative z-20 min-h-[560px] p-8 md:p-14 lg:p-16 flex flex-col justify-between md:justify-center max-w-xl">
+          {/* Top Label */}
+          <div>
+            <div className="hero-badge flex items-center gap-2.5 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full w-fit border border-white/15 text-xs tracking-wide shadow-sm mb-6 transform-gpu will-change-[transform,opacity]">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="font-medium text-white">Kashmir, India</span>
             </div>
 
-            {/* Bottom Section: Location, Subtext, and Explore More */}
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-2">
-              {/* Left side: Location badge & short description */}
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2.5 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full w-fit border border-white/15 text-xs tracking-wide shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="font-medium">Kashmir, India</span>
-                </div>
-                <p className="text-xs md:text-sm text-gray-200/90 max-w-sm leading-relaxed">
-                  Book your travel and transportation service with us and enjoy
-                  a hassle-free and memorable journey.
-                </p>
-              </div>
+            <h1 className="text-3xl font-heading md:text-5xl lg:text-6xl font-light leading-[1.2] tracking-[-0.04em] w-xl overflow-hidden">
+              <span className="hero-title-line block transform-gpu will-change-transform">
+                Make Your Next
+              </span>
+              <span className="hero-title-line block transform-gpu will-change-transform">
+                journey Unforgettable
+              </span>
+            </h1>
+          </div>
 
-              {/* Right side: Explore more action */}
-              <div className="flex items-center gap-3 text-sm font-medium cursor-pointer bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all shadow-sm group">
-                <span>Explore more</span>
-                <span className="text-xs transform group-hover:translate-y-0.5 transition-transform">
-                  ↓
-                </span>
-              </div>
+          {/* Bottom Description & Search */}
+          <div className="md:mt-7 max-w-lg">
+            <p className="hero-desc text-xs leading-[1.6] font-light text-white/70 sm:text-[15px] transform-gpu will-change-[transform,opacity] mb-6">
+              Book your travel and transportation service with us and enjoy a
+              hassle-free and memorable journey.
+            </p>
+
+            <div className="hero-search-wrapper transform-gpu will-change-[transform,opacity]">
+              <Search />
+            </div>
+
+            <div className="hero-footer-item mt-6 flex items-center gap-3 text-sm font-medium cursor-pointer bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all shadow-sm group w-fit transform-gpu will-change-[transform,opacity]">
+              <span>Explore more</span>
+              <span className="text-xs transform group-hover:translate-y-0.5 transition-transform">
+                ↓
+              </span>
             </div>
           </div>
         </div>
       </div>
 
       {/* About & Stats Section */}
-      <div className="w-full bg-white px-6 md:px-12 py-20 text-black box-border">
-        <div className="mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 justify-between items-start">
-          {/* Left Side: About Us Text Content */}
-          <div className="w-full lg:w-[58%] flex flex-col gap-4">
-            <div className="text-blue-600 font-bold text-xs tracking-widest flex items-center gap-1.5">
-              <span className="text-blue-500">//</span> ABOUT US
-            </div>
+      <div
+        ref={aboutRef}
+        className="grid grid-cols-1 items-start gap-12 md:px-8 lg:grid-cols-12 mt-16"
+      >
+        <div className="space-y-5 lg:col-span-5 overflow-hidden">
+          <span className="about-label block text-xs font-medium uppercase tracking-[0.2em] text-gray-400">
+            About us
+          </span>
 
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal leading-snug text-gray-900 max-w-2xl">
+          <h2 className="max-w-lg text-3xl font-medium leading-tight tracking-[-0.03em] text-gray-900 sm:text-4xl">
+            <span className="about-title-line block transform-gpu will-change-transform">
               We are a passionate team of travel enthusiasts dedicated to making
-              your travel dreams come true.{" "}
-              <span className="text-gray-400">
-                Our mission is to provide you with the best travel experiences
-              </span>
-            </h2>
-          </div>
+            </span>
+            <span className="about-title-line block transform-gpu will-change-transform text-gray-400 mt-1">
+              your travel dreams come true.
+            </span>
+          </h2>
+        </div>
 
-          {/* Right Side: Statistics */}
-          <div className="w-full lg:w-[42%] flex gap-6 lg:gap-8 pt-8 lg:pt-0 lg:pl-12">
-            {/* Stat 1 */}
-            <div className="flex flex-col flex-1">
-              <span className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                200+
-              </span>
-              <span className="text-xs md:text-sm text-gray-500 font-medium mt-1">
-                Happy Customer
-              </span>
-            </div>
+        {/* Stat Boxes */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:col-span-7">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="stat-card group flex flex-col justify-between rounded-sm border border-gray-200 bg-white p-5 transition-colors duration-300 sm:p-6 transform-gpu will-change-[transform,opacity]"
+            >
+              <div className="hidden md:flex mb-2 items-start justify-between">
+                <span className="text-xs font-medium text-gray-400">
+                  0{index + 1}
+                </span>
+                <span className="h-2 w-2 rounded-full bg-blue-600 opacity-20 transition-opacity duration-300 group-hover:opacity-100" />
+              </div>
 
-            {/* Stat 2 */}
-            <div className="flex flex-col flex-1">
-              <span className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                65+
-              </span>
-              <span className="text-xs md:text-sm text-gray-500 font-medium mt-1">
-                Top Hotels
-              </span>
-            </div>
+              <div>
+                <div className="inline-flex transition-colors duration-300">
+                  <span
+                    data-target={stat.target}
+                    data-suffix={stat.suffix}
+                    className="stat-number text-3xl font-normal tracking-tight text-gray-900 transition-colors duration-300 sm:text-4xl"
+                  >
+                    0{stat.suffix}
+                  </span>
+                </div>
 
-            {/* Stat 3 */}
-            <div className="flex flex-col flex-1">
-              <span className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                250+
-              </span>
-              <span className="text-xs md:text-sm text-gray-500 font-medium mt-1">
-                Experienced Guide
-              </span>
+                <span className="mt-3 block text-xs font-medium text-gray-500 sm:text-sm">
+                  {stat.label}
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

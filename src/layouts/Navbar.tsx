@@ -1,122 +1,112 @@
+
 import React, { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navLinks = [
+    { label: "Home", href: "#home" },
+    { label: "About us", href: "#about" },
+    { label: "Our services", href: "#services" },
+    { label: "Travel Packages", href: "#packages" },
+    { label: "Destinations", href: "#destinations" },
+    { label: "Contact Us", href: "#contact" },
+  ];
+
   return (
-    <nav className="absolute top-6 left-0 right-0 z-50 px-6 md:px-12 lg:px-16">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo / Brand Name */}
-        <div className="text-white text-xl font-bold tracking-wider cursor-pointer">
-          KASHMIR<span className="text-emerald-400">.</span>
-        </div>
+    <>
+      {/* Navbar */}
+      <header className="z-50 w-full mx-auto px-4 sm:px-6 lg:px-4 pt-4">
+        <nav className="flex items-center justify-between px-4 py-4 rounded-sm bg-white">
+          {/* Brand */}
+          <a href="#home" className="flex items-center gap-3 group">
+            <div className="leading-tight">
+              <span className="block font-medium text-gray-900 text-4xl tracking-tight font-accent">
+                Planner
+              </span>
+            </div>
+          </a>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 bg-white/10 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/15 text-sm text-white/90 shadow-sm">
-          <a
-            href="#home"
-            className="hover:text-white transition font-medium text-white"
-          >
-            Home
-          </a>
-          <a href="#about" className="hover:text-white/70 transition">
-            About us
-          </a>
-          <a href="#services" className="hover:text-white/70 transition">
-            Our services
-          </a>
-          <a href="#packages" className="hover:text-white/70 transition">
-            Travel Packages
-          </a>
-          <a href="#destinations" className="hover:text-white/70 transition">
-            Destinations
-          </a>
-        </div>
+          {/* Right Side */}
+          <div className="flex items-center gap-8">
+            {/* Desktop Links */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-gray-950 transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
 
-        {/* Right Side Action / Placeholder or CTA */}
-        <div className="hidden md:block">
-          <button className="bg-white/20 hover:bg-white/30 text-white font-medium px-5 py-2 rounded-full border border-white/20 transition backdrop-blur-md text-sm">
-            Contact Us
-          </button>
-        </div>
-
-        {/* Mobile Hamburger Menu Toggle */}
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none bg-white/10 backdrop-blur-md p-2 rounded-lg border border-white/20"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
+              aria-label="Toggle Menu"
             >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
+              <span
+                className={`w-6 h-0.5 bg-gray-900 transition-transform duration-300 ${
+                  isOpen ? "rotate-45 translate-y-2" : ""
+                }`}
+              />
 
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="md:hidden absolute top-16 left-6 right-6 bg-gray-900/95 backdrop-blur-xl border border-white/15 rounded-2xl p-6 text-white flex flex-col gap-4 shadow-2xl z-50">
-          <a
-            href="#home"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-emerald-400 transition font-medium"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-emerald-400 transition text-gray-300"
-          >
-            About us
-          </a>
-          <a
-            href="#services"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-emerald-400 transition text-gray-300"
-          >
-            Our services
-          </a>
-          <a
-            href="#packages"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-emerald-400 transition text-gray-300"
-          >
-            Travel Packages
-          </a>
-          <a
-            href="#destinations"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-emerald-400 transition text-gray-300"
-          >
-            Destinations
-          </a>
-          <button className="bg-white text-gray-950 font-semibold py-2.5 rounded-xl mt-2 text-center">
-            Contact Us
-          </button>
-        </div>
-      )}
-    </nav>
+              <span
+                className={`w-6 h-0.5 bg-gray-900 transition-opacity duration-300 ${
+                  isOpen ? "opacity-0" : ""
+                }`}
+              />
+
+              <span
+                className={`w-6 h-0.5 bg-gray-900 transition-transform duration-300 ${
+                  isOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <nav
+          className="
+            flex items-center justify-around
+            bg-white
+            border-t border-gray-200
+            px-2 py-2
+            shadow-lg
+          "
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="
+                flex flex-1 flex-col
+                items-center justify-center
+                gap-1 py-2
+                text-gray-500
+                hover:text-gray-950
+                active:text-gray-950
+                transition-colors
+              "
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-0 transition-opacity" />
+
+              <span className="text-[9px] font-medium uppercase tracking-wider text-center">
+                {link.label}
+              </span>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </>
   );
 };
 
 export default Navbar;
+
