@@ -1,132 +1,164 @@
-import React from "react";
-import { UserCheck, Sliders, Tag, Users, Headphones } from "lucide-react";
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import tree from "../assets/images/tree.jpg";
+import { UserCheck, Map, Tag, Users, Headphones } from "lucide-react";
 
-export default function Why() {
-  const features = [
-    {
-      icon: <UserCheck className="w-6 h-6 stroke-[1.5]" />,
-      title: "Expert Travel Planners",
+gsap.registerPlugin(ScrollTrigger);
+
+const Why: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // Initial animation states
+      gsap.set(imageRef.current, { scale: 1.15 });
+      gsap.set(".why-badge", { y: 20, opacity: 0 });
+      gsap.set(".why-title", { y: 25, opacity: 0 });
+      gsap.set(".why-desc", { y: 25, opacity: 0 });
+      gsap.set(".why-feature-item", { y: 20, opacity: 0 });
+
+      // Scroll-triggered reveal timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+          toggleActions: "play none none reverse",
+        },
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(imageRef.current, {
+        scale: 1,
+        duration: 1.4,
+      })
+        .to(
+          ".why-badge",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+          },
+          "-=1",
+        )
+        .to(
+          ".why-title",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.4",
+        )
+        .to(
+          ".why-desc",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".why-feature-item",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+          },
+          "-=0.4",
+        );
+
+      // Parallax effect on scroll
+      if (imageRef.current && containerRef.current) {
+        gsap.to(imageRef.current, {
+          yPercent: 12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
     },
-    {
-      icon: <Sliders className="w-6 h-6 stroke-[1.5]" />,
-      title: "Customized Itineraries",
-    },
-    {
-      icon: <Tag className="w-6 h-6 stroke-[1.5]" />,
-      title: "Best Price Guarantee",
-    },
-    {
-      icon: <Users className="w-6 h-6 stroke-[1.5]" />,
-      title: "Trusted by Thousands",
-    },
-    {
-      icon: <Headphones className="w-6 h-6 stroke-[1.5]" />,
-      title: "24/7 Customer Support",
-    },
-  ];
+    { scope: containerRef },
+  );
 
   return (
-    <section className="relative w-full bg-[#FBF9F5] py-16 px-6 md:px-12 lg:px-20 overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-        {/* Left Side: Overlapping Polaroid Images & Stamp */}
-        <div className="relative w-full lg:w-1/2 flex items-center justify-center p-4">
-          <div className="relative max-w-[540px] w-full h-[380px] sm:h-[420px] flex items-center justify-center">
-            {/* First Polaroid (Landscape - Couple looking at view, shifted left) */}
-            <div className="absolute left-0 top-4 bg-white p-3 pb-10 shadow-xl rounded-sm transform -rotate-6 transition-transform hover:rotate-0 duration-300 z-10 w-[65%] sm:w-[320px]">
-              <div className="aspect-[4/3] overflow-hidden bg-gray-100">
-                <img
-                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80"
-                  alt="Couple looking at landscape view"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+    <div
+      ref={containerRef}
+      className="relative p-4 w-screen h-[500px] overflow-hidden"
+    >
+      <div className="absolute inset-4 overflow-hidden rounded-xl">
+        <img
+          ref={imageRef}
+          src={tree}
+          className="h-[115%] w-full object-cover object-bottom transform-gpu will-change-transform -mt-[5%]"
+          alt="tree"
+        />
+      </div>
 
-            {/* Second Polaroid (Portrait - Van by the beach/palms, stacked top-right) */}
-            <div className="absolute right-2 sm:right-6 top-0 bg-white p-2.5 pb-8 shadow-2xl rounded-sm transform rotate-12 transition-transform hover:rotate-6 duration-300 z-20 w-[45%] sm:w-[200px]">
-              <div className="aspect-[4/5] overflow-hidden bg-gray-100">
-                <img
-                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
-                  alt="Tropical beach and van"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+      {/* Black transparent overlay layer placed above the image and below the glassmorphism card */}
+      <div className="absolute inset-4 rounded-xl bg-black/40 pointer-events-none" />
 
-            {/* Third Polaroid (Additional Photo - Mountains / Hiking adventure, stacked bottom-right) */}
-            <div className="absolute right-12 sm:right-24 bottom-2 bg-white p-2.5 pb-8 shadow-2xl rounded-sm transform -rotate-3 transition-transform hover:rotate-0 duration-300 z-25 w-[42%]: sm:w-[190px]">
-              <div className="aspect-[4/4] overflow-hidden bg-gray-100">
-                <img
-                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
-                  alt="Mountain adventure"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Circular Stamp Accent */}
-            <div className="absolute left-6 bottom-0 z-30 w-28 h-28 pointer-events-none opacity-90">
-              <svg
-                viewBox="0 0 100 100"
-                className="w-full h-full animate-spin-slow text-[#D97736]"
-              >
-                <path
-                  id="textPath"
-                  d="M 15, 50 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
-                  fill="transparent"
-                />
-                <text
-                  className="text-[10px] uppercase tracking-[2.5px] font-semibold"
-                  fill="currentColor"
-                >
-                  <textPath href="#textPath" startOffset="0%">
-                    • SINCE 2010 • ESTABLISHED •
-                  </textPath>
-                </text>
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full border border-[#D97736] flex items-center justify-center">
-                  <span className="text-xs font-bold text-[#D97736]">W</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side: Content & Features Grid */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start text-left">
-          {/* Section Heading */}
-          <div className="mb-6">
-            <h2 className="text-3xl sm:text-4xl font-serif text-[#2C2A29] font-normal tracking-tight">
-              Why Travel With Us?
-            </h2>
-            <div className="w-12 h-[2px] bg-[#D97736] mt-3"></div>
-          </div>
-
-          {/* Description Paragraph */}
-          <p className="text-[#6B6560] text-base leading-relaxed mb-10 max-w-xl">
-            We’re passionate about creating journeys that inspire, connect and
+      {/* Glassmorphism Card positioned in the center above the image, preserving the p-4 padding boundary */}
+      <div className="absolute inset-4 flex items-center justify-center pointer-events-none">
+        <div className="pointer-events-auto max-w-7xl h-auto w-full p-8 sm:p-10 rounded-2xl bg-white/20 backdrop-blur-md border border-white/20 shadow-2xl text-center text-white">
+          <span className="why-badge inline-block text-xs uppercase tracking-[3px] text-amber-300 font-semibold mb-2 transform-gpu will-change-[transform,opacity]">
+            Discover The Difference
+          </span>
+          <h2 className="why-title text-3xl sm:text-4xl font-serif font-bold tracking-tight mb-3 transform-gpu will-change-[transform,opacity]">
+            Why Travel With Us?
+          </h2>
+          <p className="why-desc text-sm sm:text-base text-gray-100 leading-relaxed font-light max-w-2xl mx-auto mb-8 transform-gpu will-change-[transform,opacity]">
+            We're passionate about creating journeys that inspire, connect and
             leave you with memories that last a lifetime.
           </p>
 
-          {/* Features Horizontal Layout / Grid */}
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-2 border-t border-[#EAE3D9]">
-            {features.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center group"
-              >
-                <div className="w-12 h-12 rounded-full flex items-center justify-center text-[#2C2A29] mb-3 transition-colors duration-200">
-                  {item.icon}
-                </div>
-                <span className="text-xs sm:text-sm font-medium text-[#2C2A29] leading-tight">
-                  {item.title}
-                </span>
-              </div>
-            ))}
+          {/* Features Grid derived from the provided content */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-6 pt-4 border-t border-white/20">
+            <div className="why-feature-item flex flex-col items-center text-center transform-gpu will-change-[transform,opacity]">
+              <UserCheck className="w-6 h-6 mb-2 text-amber-300" />
+              <span className="text-xs sm:text-sm font-medium">
+                Expert Travel Planners
+              </span>
+            </div>
+            <div className="why-feature-item flex flex-col items-center text-center transform-gpu will-change-[transform,opacity]">
+              <Map className="w-6 h-6 mb-2 text-amber-300" />
+              <span className="text-xs sm:text-sm font-medium">
+                Customized Itineraries
+              </span>
+            </div>
+            <div className="why-feature-item flex flex-col items-center text-center transform-gpu will-change-[transform,opacity]">
+              <Tag className="w-6 h-6 mb-2 text-amber-300" />
+              <span className="text-xs sm:text-sm font-medium">
+                Best Price Guarantee
+              </span>
+            </div>
+            <div className="why-feature-item flex flex-col items-center text-center transform-gpu will-change-[transform,opacity]">
+              <Users className="w-6 h-6 mb-2 text-amber-300" />
+              <span className="text-xs sm:text-sm font-medium">
+                Trusted by Thousands
+              </span>
+            </div>
+            <div className="why-feature-item col-span-2 sm:col-span-1 flex flex-col items-center text-center transform-gpu will-change-[transform,opacity]">
+              <Headphones className="w-6 h-6 mb-2 text-amber-300" />
+              <span className="text-xs sm:text-sm font-medium">
+                24/7 Customer Support
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default Why;
