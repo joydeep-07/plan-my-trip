@@ -20,9 +20,19 @@ const Navbar = () => {
         <nav className="flex items-center justify-between px-4 py-4 rounded-sm bg-white">
           {/* Brand */}
           <a href="#home" className="flex items-center gap-3 group">
+            <div className="flex flex-col gap-1">
+              <span className="w-4 h-1 bg-slate-900 rounded-full transition-all group-hover:w-5" />
+              <span className="w-6 h-1 bg-slate-900 rounded-full" />
+              <span className="w-3 h-1 bg-slate-900 rounded-full transition-all group-hover:w-5" />
+            </div>
+
             <div className="leading-tight">
-              <span className="block font-medium text-gray-900 text-4xl tracking-tight font-accent">
-                Planner
+              <span className="block font-medium text-slate-900 text-lg tracking-tight">
+                Trip Planner
+              </span>
+
+              <span className="block text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
+              Plan your trip with us
               </span>
             </div>
           </a>

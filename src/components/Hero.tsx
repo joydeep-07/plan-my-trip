@@ -26,33 +26,33 @@ const Hero: React.FC = () => {
     { target: 250, suffix: "+", label: "Experienced Guide" },
   ];
 
- const aboutWords = [
-   "We",
-   "are",
-   "a",
-   "passionate",
-   "team",
-   "of",
-   "travel",
-   "enthusiasts",
-   "dedicated",
-   "to",
-   "making",
-   "your",
-   "travel",
-   "dreams",
-   "come",
-   "true",
-   "with",
-   "memorable",
-   "journeys",
-   "and",
-   "unforgettable",
-   "experiences",
-   "around",
-   "the",
-   "world.",
- ];
+  const aboutWords = [
+    "We",
+    "are",
+    "a",
+    "passionate",
+    "team",
+    "of",
+    "travel",
+    "enthusiasts",
+    "dedicated",
+    "to",
+    "making",
+    "your",
+    "travel",
+    "dreams",
+    "come",
+    "true",
+    "with",
+    "memorable",
+    "journeys",
+    "and",
+    "unforgettable",
+    "experiences",
+    "around",
+    "the",
+    "world.",
+  ];
 
   const splitTextToSpans = (words: string[]) => {
     return words.map((word, i) => (
@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
           {
             scale: 1,
             duration: 1.5,
-            ease: "power3.inOut",
+            ease: "power2.inOut",
           },
           "<",
         )
@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
             duration: 0.6,
             stagger: 0.15,
           },
-          "-=0.4",
+          "-=0.5",
         );
 
       // Parallax effect on scroll
@@ -268,13 +268,6 @@ const Hero: React.FC = () => {
             <div className="hero-search-wrapper transform-gpu will-change-[transform,opacity]">
               <Search />
             </div>
-
-            <div className="hero-footer-item mt-6 flex items-center gap-3 text-sm font-medium cursor-pointer bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all shadow-sm group w-fit transform-gpu will-change-[transform,opacity]">
-              <span>Explore more</span>
-              <span className="text-xs transform group-hover:translate-y-0.5 transition-transform">
-                ↓
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -303,7 +296,7 @@ const Hero: React.FC = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="stat-card group flex min-w-0 flex-1 flex-col justify-between rounded-sm border border-gray-200 bg-white p-5 transition-colors duration-300 sm:p-6"
+              className="stat-card group flex min-w-0 flex-1 flex-col justify-between rounded-sm p-5 transition-colors duration-300 sm:p-6"
             >
               <div className="mb-2 hidden items-start justify-between md:flex">
                 <span className="text-xs font-medium text-gray-400">
