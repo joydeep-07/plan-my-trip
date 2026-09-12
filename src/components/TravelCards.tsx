@@ -326,7 +326,7 @@ const TravelCards = () => {
                 xl:justify-end
               "
             >
-              <div className="w-full max-w-[700px] min-w-0">
+              <div className="w-full">
                 <FlightTickets />
               </div>
             </div>

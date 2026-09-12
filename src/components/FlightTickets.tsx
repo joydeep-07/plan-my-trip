@@ -70,9 +70,9 @@ const FlightTickets = () => {
   };
 
   return (
-    <section className="w-full px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="rounded-[28px] border border-neutral-800 bg-[#121212] p-4 shadow-[0_20px_80px_rgba(255,255,255,0.04)] sm:p-6 lg:p-7">
+    <section className="w-full">
+      <div className="mx-auto md:w-2xl">
+        <div className="">
           {/* HEADER */}
           <div className="mb-6 flex items-center justify-between gap-4">
             <div className="min-w-0">
@@ -94,308 +94,112 @@ const FlightTickets = () => {
             </div>
           </div>
 
-          {/* FORM */}
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-[1fr_auto_1fr_0.8fr_0.65fr_auto] lg:items-end">
-            {/* FROM */}
-            <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
-              <div className="mb-3 flex items-center gap-2">
-                <MapPin size={14} className="text-neutral-500" />
+          {/* FORM GRID */}
+          <div className="grid grid-cols-1 gap-3">
+            {/* ROW 1: FROM, SWAP, TO */}
+            <div className="grid grid-cols-1 gap-3 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+              {/* FROM */}
+              <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
+                <div className="mb-3 flex items-center gap-2">
+                  <MapPin size={14} className="text-neutral-500" />
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                  From
-                </span>
-              </div>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                    From
+                  </span>
+                </div>
 
-              <Autocomplete
-                value={from}
-                onChange={(_, newValue) => {
-                  if (newValue) {
-                    setFrom(newValue);
+                <Autocomplete
+                  value={from}
+                  onChange={(_, newValue) => {
+                    if (newValue) {
+                      setFrom(newValue);
+                    }
+                  }}
+                  options={locations}
+                  isOptionEqualToValue={(option, value) =>
+                    option.code === value.code
                   }
-                }}
-                options={locations}
-                isOptionEqualToValue={(option, value) =>
-                  option.code === value.code
-                }
-                getOptionLabel={(option) => `${option.city}, ${option.country}`}
-                disableClearable
-                popupIcon={null}
-                sx={{
-                  width: "100%",
-
-                  "& .MuiAutocomplete-inputRoot": {
-                    padding: "0 !important",
-                  },
-
-                  "& .MuiAutocomplete-input": {
-                    padding: "0 !important",
-                  },
-                }}
-                slotProps={{
-                  paper: {
-                    sx: {
-                      mt: 1,
-                      backgroundColor: "#181818",
-                      color: "#fff",
-                      border: "1px solid #292929",
-                      borderRadius: "16px",
-                      overflow: "hidden",
-
-                      "& .MuiAutocomplete-option": {
-                        minHeight: "48px",
-                        fontSize: "13px",
-                        color: "#d4d4d4",
-
-                        "&[aria-selected='true']": {
-                          backgroundColor: "#242424",
-                        },
-
-                        "&:hover": {
-                          backgroundColor: "#222",
-                        },
-                      },
-                    },
-                  },
-                }}
-                renderOption={(props, option) => (
-                  <li {...props} key={option.code}>
-                    <div className="flex w-full items-center justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-white">
-                          {option.city}
-                        </p>
-
-                        <p className="truncate text-[11px] text-neutral-500">
-                          {option.country}
-                        </p>
-                      </div>
-
-                      <span className="shrink-0 text-[10px] font-semibold tracking-wider text-neutral-600">
-                        {option.code}
-                      </span>
-                    </div>
-                  </li>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="Search city or country"
-                    variant="standard"
-                    sx={{
-                      width: "100%",
-
-                      "& .MuiInputBase-root": {
-                        minWidth: 0,
-                        color: "#fff",
-                      },
-
-                      "& .MuiInputBase-input": {
-                        color: "#fff",
-                        padding: "0 !important",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        minWidth: 0,
-                        textOverflow: "ellipsis",
-                      },
-
-                      "& .MuiInputBase-input::placeholder": {
-                        color: "#525252",
-                        opacity: 1,
-                      },
-
-                      "& .MuiAutocomplete-endAdornment": {
-                        display: "none",
-                      },
-
-                      "& .MuiInput-underline:before": {
-                        borderBottom: "none",
-                      },
-
-                      "& .MuiInput-underline:after": {
-                        borderBottom: "none",
-                      },
-
-                      "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                        borderBottom: "none",
-                      },
-                    }}
-                  />
-                )}
-              />
-            </div>
-
-            {/* SWAP */}
-            <button
-              type="button"
-              onClick={handleSwap}
-              aria-label="Swap departure and destination"
-              className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-neutral-800 bg-[#181818] text-neutral-400 transition-all hover:border-neutral-600 hover:bg-neutral-800 hover:text-white lg:mb-3"
-            >
-              <ArrowRight size={15} className="rotate-90 lg:rotate-0" />
-            </button>
-
-            {/* TO */}
-            <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
-              <div className="mb-3 flex items-center gap-2">
-                <MapPin size={14} className="text-neutral-500" />
-
-                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                  To
-                </span>
-              </div>
-
-              <Autocomplete
-                value={to}
-                onChange={(_, newValue) => {
-                  if (newValue) {
-                    setTo(newValue);
+                  getOptionLabel={(option) =>
+                    `${option.city}, ${option.country}`
                   }
-                }}
-                options={locations}
-                isOptionEqualToValue={(option, value) =>
-                  option.code === value.code
-                }
-                getOptionLabel={(option) => `${option.city}, ${option.country}`}
-                disableClearable
-                popupIcon={null}
-                sx={{
-                  width: "100%",
+                  disableClearable
+                  popupIcon={null}
+                  sx={{
+                    width: "100%",
 
-                  "& .MuiAutocomplete-inputRoot": {
-                    padding: "0 !important",
-                  },
-
-                  "& .MuiAutocomplete-input": {
-                    padding: "0 !important",
-                  },
-                }}
-                slotProps={{
-                  paper: {
-                    sx: {
-                      mt: 1,
-                      backgroundColor: "#181818",
-                      color: "#fff",
-                      border: "1px solid #292929",
-                      borderRadius: "16px",
-                      overflow: "hidden",
-
-                      "& .MuiAutocomplete-option": {
-                        minHeight: "48px",
-                        fontSize: "13px",
-                        color: "#d4d4d4",
-
-                        "&[aria-selected='true']": {
-                          backgroundColor: "#242424",
-                        },
-
-                        "&:hover": {
-                          backgroundColor: "#222",
-                        },
-                      },
+                    "& .MuiAutocomplete-inputRoot": {
+                      padding: "0 !important",
                     },
-                  },
-                }}
-                renderOption={(props, option) => (
-                  <li {...props} key={option.code}>
-                    <div className="flex w-full items-center justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-white">
-                          {option.city}
-                        </p>
 
-                        <p className="truncate text-[11px] text-neutral-500">
-                          {option.country}
-                        </p>
-                      </div>
-
-                      <span className="shrink-0 text-[10px] font-semibold tracking-wider text-neutral-600">
-                        {option.code}
-                      </span>
-                    </div>
-                  </li>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    placeholder="Search city or country"
-                    variant="standard"
-                    sx={{
-                      width: "100%",
-
-                      "& .MuiInputBase-root": {
-                        minWidth: 0,
-                        color: "#fff",
-                      },
-
-                      "& .MuiInputBase-input": {
-                        color: "#fff",
-                        padding: "0 !important",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        minWidth: 0,
-                        textOverflow: "ellipsis",
-                      },
-
-                      "& .MuiInputBase-input::placeholder": {
-                        color: "#525252",
-                        opacity: 1,
-                      },
-
-                      "& .MuiAutocomplete-endAdornment": {
-                        display: "none",
-                      },
-
-                      "& .MuiInput-underline:before": {
-                        borderBottom: "none",
-                      },
-
-                      "& .MuiInput-underline:after": {
-                        borderBottom: "none",
-                      },
-
-                      "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                        borderBottom: "none",
-                      },
-                    }}
-                  />
-                )}
-              />
-            </div>
-
-            {/* DEPARTURE */}
-            <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
-              <div className="mb-3 flex items-center gap-2">
-                <CalendarDays size={14} className="text-neutral-500" />
-
-                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                  Departure
-                </span>
-              </div>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  value={departure}
-                  onChange={(newValue) => setDeparture(newValue)}
-                  minDate={dayjs()}
-                  format="DD MMM YYYY"
+                    "& .MuiAutocomplete-input": {
+                      padding: "0 !important",
+                    },
+                  }}
                   slotProps={{
-                    textField: {
-                      variant: "standard",
-                      fullWidth: true,
-
+                    paper: {
                       sx: {
+                        mt: 1,
+                        backgroundColor: "#181818",
+                        color: "#fff",
+                        border: "1px solid #292929",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+
+                        "& .MuiAutocomplete-option": {
+                          minHeight: "48px",
+                          fontSize: "13px",
+                          color: "#d4d4d4",
+
+                          "&[aria-selected='true']": {
+                            backgroundColor: "#242424",
+                          },
+
+                          "&:hover": {
+                            backgroundColor: "#222",
+                          },
+                        },
+                      },
+                    },
+                  }}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option.code}>
+                      <div className="flex w-full items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium text-white">
+                            {option.city}
+                          </p>
+
+                          <p className="truncate text-[11px] text-neutral-500">
+                            {option.country}
+                          </p>
+                        </div>
+
+                        <span className="shrink-0 text-[10px] font-semibold tracking-wider text-neutral-600">
+                          {option.code}
+                        </span>
+                      </div>
+                    </li>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Search city or country"
+                      variant="standard"
+                      sx={{
                         width: "100%",
 
                         "& .MuiInputBase-root": {
                           minWidth: 0,
+                          color: "#fff",
                         },
 
                         "& .MuiInputBase-input": {
-                          color: "#d4d4d4",
+                          color: "#fff",
                           padding: "0 !important",
                           fontSize: "14px",
                           fontWeight: 500,
                           minWidth: 0,
+                          textOverflow: "ellipsis",
                         },
 
                         "& .MuiInputBase-input::placeholder": {
@@ -403,12 +207,8 @@ const FlightTickets = () => {
                           opacity: 1,
                         },
 
-                        "& .MuiSvgIcon-root": {
-                          color: "#737373",
-                        },
-
-                        "& .MuiInputAdornment-root": {
-                          marginLeft: "0",
+                        "& .MuiAutocomplete-endAdornment": {
+                          display: "none",
                         },
 
                         "& .MuiInput-underline:before": {
@@ -423,94 +223,305 @@ const FlightTickets = () => {
                           {
                             borderBottom: "none",
                           },
-                      },
-                    },
-                  }}
+                      }}
+                    />
+                  )}
                 />
-              </LocalizationProvider>
-            </div>
-
-            {/* TRAVELERS */}
-            <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
-              <div className="mb-3 flex items-center gap-2">
-                <Users size={14} className="text-neutral-500" />
-
-                <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                  Travelers
-                </span>
               </div>
 
-              <Select
-                value={travelers}
-                onChange={handleTravelersChange}
-                variant="standard"
-                disableUnderline
-                fullWidth
-                sx={{
-                  color: "#d4d4d4",
-                  fontSize: "14px",
-                  fontWeight: 500,
+              {/* SWAP */}
+              <button
+                type="button"
+                onClick={handleSwap}
+                aria-label="Swap departure and destination"
+                className="mx-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-neutral-800 bg-[#181818] text-neutral-400 transition-all hover:border-neutral-600 hover:bg-neutral-800 hover:text-white"
+              >
+                <ArrowRight size={15} className="rotate-90 lg:rotate-0" />
+              </button>
 
-                  "& .MuiSelect-select": {
-                    padding: "0 !important",
-                  },
+              {/* TO */}
+              <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
+                <div className="mb-3 flex items-center gap-2">
+                  <MapPin size={14} className="text-neutral-500" />
 
-                  "& .MuiSvgIcon-root": {
-                    color: "#737373",
-                  },
-                }}
-                MenuProps={{
-                  slotProps: {
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                    To
+                  </span>
+                </div>
+
+                <Autocomplete
+                  value={to}
+                  onChange={(_, newValue) => {
+                    if (newValue) {
+                      setTo(newValue);
+                    }
+                  }}
+                  options={locations}
+                  isOptionEqualToValue={(option, value) =>
+                    option.code === value.code
+                  }
+                  getOptionLabel={(option) =>
+                    `${option.city}, ${option.country}`
+                  }
+                  disableClearable
+                  popupIcon={null}
+                  sx={{
+                    width: "100%",
+
+                    "& .MuiAutocomplete-inputRoot": {
+                      padding: "0 !important",
+                    },
+
+                    "& .MuiAutocomplete-input": {
+                      padding: "0 !important",
+                    },
+                  }}
+                  slotProps={{
                     paper: {
                       sx: {
-                        backgroundColor: "#18181b",
+                        mt: 1,
+                        backgroundColor: "#181818",
                         color: "#fff",
-                        border: "1px solid #262626",
-                        borderRadius: "14px",
-                        marginTop: "6px",
+                        border: "1px solid #292929",
+                        borderRadius: "16px",
+                        overflow: "hidden",
 
-                        "& .MuiMenuItem-root": {
+                        "& .MuiAutocomplete-option": {
+                          minHeight: "48px",
                           fontSize: "13px",
                           color: "#d4d4d4",
 
-                          "&:hover": {
+                          "&[aria-selected='true']": {
                             backgroundColor: "#242424",
                           },
 
-                          "&.Mui-selected": {
-                            backgroundColor: "#292929",
-                          },
-
-                          "&.Mui-selected:hover": {
-                            backgroundColor: "#333",
+                          "&:hover": {
+                            backgroundColor: "#222",
                           },
                         },
                       },
                     },
-                  },
-                }}
-              >
-                <MenuItem value="1">1 Traveler</MenuItem>
-                <MenuItem value="2">2 Travelers</MenuItem>
-                <MenuItem value="3">3 Travelers</MenuItem>
-                <MenuItem value="4">4 Travelers</MenuItem>
-                <MenuItem value="5">5 Travelers</MenuItem>
-                <MenuItem value="6">6 Travelers</MenuItem>
-                <MenuItem value="7">7 Travelers</MenuItem>
-                <MenuItem value="8">8 Travelers</MenuItem>
-                <MenuItem value="9">9 Travelers</MenuItem>
-              </Select>
+                  }}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option.code}>
+                      <div className="flex w-full items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium text-white">
+                            {option.city}
+                          </p>
+
+                          <p className="truncate text-[11px] text-neutral-500">
+                            {option.country}
+                          </p>
+                        </div>
+
+                        <span className="shrink-0 text-[10px] font-semibold tracking-wider text-neutral-600">
+                          {option.code}
+                        </span>
+                      </div>
+                    </li>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Search city or country"
+                      variant="standard"
+                      sx={{
+                        width: "100%",
+
+                        "& .MuiInputBase-root": {
+                          minWidth: 0,
+                          color: "#fff",
+                        },
+
+                        "& .MuiInputBase-input": {
+                          color: "#fff",
+                          padding: "0 !important",
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          minWidth: 0,
+                          textOverflow: "ellipsis",
+                        },
+
+                        "& .MuiInputBase-input::placeholder": {
+                          color: "#525252",
+                          opacity: 1,
+                        },
+
+                        "& .MuiAutocomplete-endAdornment": {
+                          display: "none",
+                        },
+
+                        "& .MuiInput-underline:before": {
+                          borderBottom: "none",
+                        },
+
+                        "& .MuiInput-underline:after": {
+                          borderBottom: "none",
+                        },
+
+                        "& .MuiInput-underline:hover:not(.Mui-disabled):before":
+                          {
+                            borderBottom: "none",
+                          },
+                      }}
+                    />
+                  )}
+                />
+              </div>
             </div>
 
-            {/* SEARCH */}
+            {/* ROW 2: DEPARTURE & TRAVELERS */}
+            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+              {/* DEPARTURE */}
+              <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
+                <div className="mb-3 flex items-center gap-2">
+                  <CalendarDays size={14} className="text-neutral-500" />
+
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                    Departure
+                  </span>
+                </div>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    value={departure}
+                    onChange={(newValue) => setDeparture(newValue)}
+                    minDate={dayjs()}
+                    format="DD MMM YYYY"
+                    slotProps={{
+                      textField: {
+                        variant: "standard",
+                        fullWidth: true,
+
+                        sx: {
+                          width: "100%",
+
+                          "& .MuiInputBase-root": {
+                            minWidth: 0,
+                          },
+
+                          "& .MuiInputBase-input": {
+                            color: "#d4d4d4",
+                            padding: "0 !important",
+                            fontSize: "14px",
+                            fontWeight: 500,
+                            minWidth: 0,
+                          },
+
+                          "& .MuiInputBase-input::placeholder": {
+                            color: "#525252",
+                            opacity: 1,
+                          },
+
+                          "& .MuiSvgIcon-root": {
+                            color: "#737373",
+                          },
+
+                          "& .MuiInputAdornment-root": {
+                            marginLeft: "0",
+                          },
+
+                          "& .MuiInput-underline:before": {
+                            borderBottom: "none",
+                          },
+
+                          "& .MuiInput-underline:after": {
+                            borderBottom: "none",
+                          },
+
+                          "& .MuiInput-underline:hover:not(.Mui-disabled):before":
+                            {
+                              borderBottom: "none",
+                            },
+                        },
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+              </div>
+
+              {/* TRAVELERS */}
+              <div className="min-w-0 rounded-2xl border border-neutral-800 bg-[#181818] p-4 transition-colors hover:border-neutral-700">
+                <div className="mb-3 flex items-center gap-2">
+                  <Users size={14} className="text-neutral-500" />
+
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                    Travelers
+                  </span>
+                </div>
+
+                <Select
+                  value={travelers}
+                  onChange={handleTravelersChange}
+                  variant="standard"
+                  disableUnderline
+                  fullWidth
+                  sx={{
+                    color: "#d4d4d4",
+                    fontSize: "14px",
+                    fontWeight: 500,
+
+                    "& .MuiSelect-select": {
+                      padding: "0 !important",
+                    },
+
+                    "& .MuiSvgIcon-root": {
+                      color: "#737373",
+                    },
+                  }}
+                  MenuProps={{
+                    slotProps: {
+                      paper: {
+                        sx: {
+                          backgroundColor: "#18181b",
+                          color: "#fff",
+                          border: "1px solid #262626",
+                          borderRadius: "14px",
+                          marginTop: "6px",
+
+                          "& .MuiMenuItem-root": {
+                            fontSize: "13px",
+                            color: "#d4d4d4",
+
+                            "&:hover": {
+                              backgroundColor: "#242424",
+                            },
+
+                            "&.Mui-selected": {
+                              backgroundColor: "#292929",
+                            },
+
+                            "&.Mui-selected:hover": {
+                              backgroundColor: "#333",
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }}
+                >
+                  <MenuItem value="1">1 Traveler</MenuItem>
+                  <MenuItem value="2">2 Travelers</MenuItem>
+                  <MenuItem value="3">3 Travelers</MenuItem>
+                  <MenuItem value="4">4 Travelers</MenuItem>
+                  <MenuItem value="5">5 Travelers</MenuItem>
+                  <MenuItem value="6">6 Travelers</MenuItem>
+                  <MenuItem value="7">7 Travelers</MenuItem>
+                  <MenuItem value="8">8 Travelers</MenuItem>
+                  <MenuItem value="9">9 Travelers</MenuItem>
+                </Select>
+              </div>
+            </div>
+
+            {/* ROW 3: SEARCH BUTTON */}
             <button
               type="button"
               onClick={handleSearch}
-              className="flex items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 active:scale-[0.98]"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 active:scale-[0.98]"
             >
               <Search size={17} />
-
-              <span className="hidden sm:inline">Search flights</span>
+              <span>Search flights</span>
             </button>
           </div>
 
