@@ -1,14 +1,48 @@
-// import React from "react";
-
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Plane } from "lucide-react";
 import FlightTickets from "./FlightTickets";
 
+// Register the ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
 const TravelCards = () => {
+  const containerRef = useRef(null);
+  const circlesRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+
+    const ctx = gsap.context(() => {
+      // Parallax and rotation effect for background concentric circles (only animation kept)
+      gsap.to(circlesRef.current, {
+        rotation: 45,
+        scale: 1.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+    }, containerRef);
+
+    return () => ctx.revert(); // Cleanup GSAP animations on unmount
+  }, []);
+
   return (
     <div className="">
-      <div className="text-white bg-black rounded-t-[50px] w-full mx-auto border border-neutral-800 font-sans overflow-hidden relative shadow-[0_25px_60px_-15px_rgba(255,255,255,0.08)]">
+      <div
+        ref={containerRef}
+        className="text-white bg-black w-full mx-auto border border-neutral-800 font-sans overflow-hidden relative shadow-[0_25px_60px_-15px_rgba(255,255,255,0.08)]"
+      >
         {/* Background Concentric Circles */}
-        <div className="absolute top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-20">
+        <div
+          ref={circlesRef}
+          className="absolute top-1/2 left-2/3 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-20 origin-center"
+        >
           <svg
             className="w-[800px] h-[800px] md:w-[1200px] md:h-[1200px]"
             viewBox="0 0 1000 1000"
@@ -71,8 +105,8 @@ const TravelCards = () => {
 
                 <p className="mt-6 text-neutral-400 text-sm md:text-base leading-relaxed">
                   Book your flight tickets and discover beautiful destinations
-                  around the world. Choose where you want to go and let the journey
-                  begin.
+                  around the world. Choose where you want to go and let the
+                  journey begin.
                 </p>
               </div>
 
@@ -101,7 +135,9 @@ const TravelCards = () => {
               </div>
             </div>
 
-            <FlightTickets/>
+            <div>
+              <FlightTickets />
+            </div>
           </div>
         </div>
       </div>
