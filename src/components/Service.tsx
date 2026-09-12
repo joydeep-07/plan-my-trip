@@ -82,10 +82,8 @@ const Service: React.FC = () => {
         if (!path) return;
 
         const totalLength = path.getTotalLength();
-        // Increased length to ~55% of the border to satisfy the requirement
         const visibleLength = totalLength * 0.55;
 
-        // Pick a random corner every time the component mounts/animates
         const randomCorner =
           corners[Math.floor(Math.random() * corners.length)];
 
@@ -93,19 +91,18 @@ const Service: React.FC = () => {
 
         switch (randomCorner) {
           case "top-left":
-            // Starts drawing from top-left going right/down
             initialOffset = totalLength - visibleLength;
             break;
+
           case "top-right":
-            // Shift offset to position along the top-right corner
             initialOffset = totalLength - totalLength * 0.25 - visibleLength;
             break;
+
           case "bottom-right":
-            // Shift offset to position along the bottom-right corner
             initialOffset = totalLength - totalLength * 0.5 - visibleLength;
             break;
+
           case "bottom-left":
-            // Shift offset to position along the bottom-left corner
             initialOffset = totalLength - totalLength * 0.75 - visibleLength;
             break;
         }
@@ -133,9 +130,25 @@ const Service: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="md:px-12 px-4 py-16 bg-[var(--bg-main)] overflow-hidden"
+      className="
+        md:px-8 px-4
+        py-16
+        bg-[var(--bg-main)]
+        overflow-hidden
+      "
     >
-      <h2 className="about-label block text-xs font-medium uppercase pb-8 tracking-[0.2em] text-gray-400">
+      <h2
+        className="
+          about-label
+          block
+          text-xs
+          font-medium
+          uppercase
+          pb-8
+          tracking-[0.2em]
+          text-[var(--text-muted)]
+        "
+      >
         Our Services
       </h2>
 
@@ -143,7 +156,18 @@ const Service: React.FC = () => {
         {/* Row 1 */}
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Card 1 */}
-          <div className="flex flex-col w-full lg:w-4/7 bg-gray-50/50 p-4 rounded-2xl border border-gray-100 relative overflow-hidden">
+          <div
+            className="
+              flex flex-col
+              w-full lg:w-4/7
+              bg-[var(--bg-secondary)]
+              p-4
+              rounded-2xl
+              border border-[var(--border-light)]
+              relative
+              overflow-hidden
+            "
+          >
             <svg
               className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
               fill="none"
@@ -157,21 +181,47 @@ const Service: React.FC = () => {
                 height="calc(100% - 3px)"
                 rx="16"
                 ry="16"
-                className="stroke-emerald-600"
+                className="stroke-[var(--accent-primary)]"
                 strokeWidth="2"
               />
             </svg>
+
             <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span className="text-xs font-medium uppercase tracking-widest text-emerald-600">
+              <span
+                className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-widest
+                  text-[var(--accent-primary)]
+                "
+              >
                 {services[0].subtitle}
               </span>
-              <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900">
+
+              <h3
+                className="
+                  text-xl md:text-2xl
+                  font-medium
+                  tracking-tight
+                  text-[var(--text-main)]
+                "
+              >
                 {services[0].title}
               </h3>
-              <p className="text-xs md:text-sm text-gray-500 font-light leading-relaxed">
+
+              <p
+                className="
+                  text-xs md:text-sm
+                  text-[var(--text-secondary)]
+                  font-light
+                  leading-relaxed
+                "
+              >
                 {services[0].description}
               </p>
             </div>
+
             <div className="h-75 w-full rounded-xl overflow-hidden">
               <img
                 src={services[0].image}
@@ -182,7 +232,18 @@ const Service: React.FC = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="flex flex-col w-full lg:w-3/7 bg-gray-50/50 p-4 rounded-2xl border border-gray-100 relative overflow-hidden">
+          <div
+            className="
+              flex flex-col
+              w-full lg:w-3/7
+              bg-[var(--bg-secondary)]
+              p-4
+              rounded-2xl
+              border border-[var(--border-light)]
+              relative
+              overflow-hidden
+            "
+          >
             <svg
               className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
               fill="none"
@@ -196,21 +257,47 @@ const Service: React.FC = () => {
                 height="calc(100% - 3px)"
                 rx="16"
                 ry="16"
-                className="stroke-emerald-600"
+                className="stroke-[var(--accent-primary)]"
                 strokeWidth="2"
               />
             </svg>
+
             <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span className="text-xs font-medium uppercase tracking-widest text-emerald-600">
+              <span
+                className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-widest
+                  text-[var(--accent-primary)]
+                "
+              >
                 {services[1].subtitle}
               </span>
-              <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900">
+
+              <h3
+                className="
+                  text-xl md:text-2xl
+                  font-medium
+                  tracking-tight
+                  text-[var(--text-main)]
+                "
+              >
                 {services[1].title}
               </h3>
-              <p className="text-xs md:text-sm text-gray-500 font-light leading-relaxed">
+
+              <p
+                className="
+                  text-xs md:text-sm
+                  text-[var(--text-secondary)]
+                  font-light
+                  leading-relaxed
+                "
+              >
                 {services[1].description}
               </p>
             </div>
+
             <div className="h-75 w-full rounded-xl overflow-hidden">
               <img
                 src={services[1].image}
@@ -224,7 +311,18 @@ const Service: React.FC = () => {
         {/* Row 2 */}
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Card 3 */}
-          <div className="flex flex-col w-full lg:w-3/7 bg-gray-50/50 p-4 rounded-2xl border border-gray-100 relative overflow-hidden">
+          <div
+            className="
+              flex flex-col
+              w-full lg:w-3/7
+              bg-[var(--bg-secondary)]
+              p-4
+              rounded-2xl
+              border border-[var(--border-light)]
+              relative
+              overflow-hidden
+            "
+          >
             <svg
               className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
               fill="none"
@@ -238,21 +336,47 @@ const Service: React.FC = () => {
                 height="calc(100% - 3px)"
                 rx="16"
                 ry="16"
-                className="stroke-emerald-600"
+                className="stroke-[var(--accent-primary)]"
                 strokeWidth="2"
               />
             </svg>
+
             <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span className="text-xs font-medium uppercase tracking-widest text-emerald-600">
+              <span
+                className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-widest
+                  text-[var(--accent-primary)]
+                "
+              >
                 {services[2].subtitle}
               </span>
-              <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900">
+
+              <h3
+                className="
+                  text-xl md:text-2xl
+                  font-medium
+                  tracking-tight
+                  text-[var(--text-main)]
+                "
+              >
                 {services[2].title}
               </h3>
-              <p className="text-xs md:text-sm text-gray-500 font-light leading-relaxed">
+
+              <p
+                className="
+                  text-xs md:text-sm
+                  text-[var(--text-secondary)]
+                  font-light
+                  leading-relaxed
+                "
+              >
                 {services[2].description}
               </p>
             </div>
+
             <div className="h-75 w-full rounded-xl overflow-hidden">
               <img
                 src={services[2].image}
@@ -263,7 +387,18 @@ const Service: React.FC = () => {
           </div>
 
           {/* Card 4 */}
-          <div className="flex flex-col w-full lg:w-4/7 bg-gray-50/50 p-4 rounded-2xl border border-gray-100 relative overflow-hidden">
+          <div
+            className="
+              flex flex-col
+              w-full lg:w-4/7
+              bg-[var(--bg-secondary)]
+              p-4
+              rounded-2xl
+              border border-[var(--border-light)]
+              relative
+              overflow-hidden
+            "
+          >
             <svg
               className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
               fill="none"
@@ -277,21 +412,47 @@ const Service: React.FC = () => {
                 height="calc(100% - 3px)"
                 rx="16"
                 ry="16"
-                className="stroke-emerald-600"
+                className="stroke-[var(--accent-primary)]"
                 strokeWidth="2"
               />
             </svg>
+
             <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span className="text-xs font-medium uppercase tracking-widest text-emerald-600">
+              <span
+                className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-widest
+                  text-[var(--accent-primary)]
+                "
+              >
                 {services[3].subtitle}
               </span>
-              <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900">
+
+              <h3
+                className="
+                  text-xl md:text-2xl
+                  font-medium
+                  tracking-tight
+                  text-[var(--text-main)]
+                "
+              >
                 {services[3].title}
               </h3>
-              <p className="text-xs md:text-sm text-gray-500 font-light leading-relaxed">
+
+              <p
+                className="
+                  text-xs md:text-sm
+                  text-[var(--text-secondary)]
+                  font-light
+                  leading-relaxed
+                "
+              >
                 {services[3].description}
               </p>
             </div>
+
             <div className="h-75 w-full rounded-xl overflow-hidden">
               <img
                 src={services[3].image}

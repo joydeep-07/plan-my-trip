@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
-::-webkit-scrollbar{
+:root {
+  /* Backgrounds */
+  --bg-main: #fefcf9;
+  --bg-secondary: #ffffff;
+
+  /* Borders */
+  --border-light: #d8e5ee;
+
+  /* Accent */
+  --accent-primary: #5b9ec4;
+
+  /* Text */
+  --text-main: #19384d;
+  --text-secondary: #587080;
+  --text-muted: #8799a5;
+}
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -26,11 +42,10 @@
   font-family: "genos", sans-serif;
 }
 
-.font-accent{
-   font-family: "Biscotti", sans-serif;
+.font-accent {
+  font-family: "Biscotti", sans-serif;
 }
 
-*{
-   font-family: "Saira", sans-serif;
+* {
+  font-family: "Saira", sans-serif;
 }
-
