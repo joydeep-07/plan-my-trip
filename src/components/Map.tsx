@@ -53,10 +53,10 @@ const Map = () => {
               </span>
             </div>
 
-            <h2 className="mt-7 max-w-2xl text-6xl font-semibold leading-[0.95] tracking-[-0.055em] text-gray-950">
-              Go somewhere
-              <span className="block text-[var(--accent-primary)]">
-                unforgettable.
+            <h2 className="mt-7 max-w-2xl text-5xl font-light leading-[0.95] tracking-[-0.055em] text-gray-950">
+              Go somewhere 
+              <span className=" text-[var(--accent-primary)]">
+                {" "}unforgettable.
               </span>
             </h2>
 
