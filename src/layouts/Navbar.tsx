@@ -1,22 +1,21 @@
 import { Info, Layers, Map, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navLinks = [
-    // { label: "Home", href: "#home", icon: Home },
-    { label: "About", href: "#about", icon: Info },
-    { label: "Services", href: "#services", icon: Layers },
-    // { label: "Packages", href: "#packages", icon: Package },
-    { label: "Destinations", href: "#destinations", icon: Map },
-    { label: "Contact", href: "#contact", icon: Phone },
+    { label: "About", path: "/about", icon: Info },
+    { label: "Services", path: "/services", icon: Layers },
+    { label: "Destinations", path: "/travel-packages", icon: Map },
+    { label: "Contact", path: "/contact", icon: Phone },
   ];
 
   return (
     <>
       {/* Navbar */}
-      <header className="z-50 w-full mx-auto px-4 sm:px-6 lg:px-4 pt-4">
+      <header className="z-50 w-full mx-auto px-4 sm:px-6 lg:px-4 md:pt-0 pt-2">
         <nav className="flex items-center justify-between px-4 py-4 rounded-sm bg-white">
           {/* Brand */}
-          <a href="#home" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="flex flex-col gap-1">
               <span className="w-4 h-1 bg-slate-900 rounded-full transition-all group-hover:w-5" />
               <span className="w-6 h-1 bg-slate-900 rounded-full" />
@@ -27,30 +26,29 @@ const Navbar = () => {
               <span className="block font-medium text-slate-900 text-lg tracking-tight">
                 Trip Planner
               </span>
+
               <span className="block text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
                 Plan your trip with us
               </span>
             </div>
-          </a>
+          </Link>
 
-          {/* Right Side (Desktop Links Only) */}
-          <div className="flex items-center gap-8">
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-gray-950 transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="hover:text-gray-950 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </nav>
       </header>
 
-      {/* Mobile Bottom Navigation with Icons */}
+      {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
         <nav
           className="
@@ -63,25 +61,26 @@ const Navbar = () => {
         >
           {navLinks.map((link) => {
             const IconComponent = link.icon;
+
             return (
-              <a
-                key={link.href}
-                href={link.href}
+              <Link
+                key={link.path}
+                to={link.path}
                 className="
                   flex flex-1 flex-col
                   items-center justify-center
                   gap-1 py-1
                   text-gray-500
                   hover:text-gray-950
-                  active:text-gray-950
                   transition-colors
                 "
               >
                 <IconComponent className="w-5 h-5" />
+
                 <span className="text-[9px] font-medium uppercase tracking-wider text-center truncate w-full px-0.5">
                   {link.label}
                 </span>
-              </a>
+              </Link>
             );
           })}
         </nav>
