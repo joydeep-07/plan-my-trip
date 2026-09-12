@@ -94,7 +94,7 @@ const Why: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative p-4 w-screen h-[500px] overflow-hidden"
+      className="relative p-4 mb-25 w-screen h-[500px] overflow-hidden"
     >
       <div className="absolute inset-4 overflow-hidden rounded-xl">
         <img
@@ -110,7 +110,7 @@ const Why: React.FC = () => {
 
       {/* Glassmorphism Card positioned in the center above the image, preserving the p-4 padding boundary */}
       <div className="absolute inset-4 flex items-center justify-center pointer-events-none">
-        <div className="pointer-events-auto max-w-7xl h-auto w-full p-8 sm:p-10 rounded-2xl bg-white/20 backdrop-blur-md border border-white/20 shadow-2xl text-center text-white">
+        <div className="pointer-events-auto md:max-w-7xl h-full md:h-auto w-full p-8 sm:p-10 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 text-center text-white">
           <span className="why-badge inline-block text-xs uppercase tracking-[3px] text-amber-300 font-semibold mb-2 transform-gpu will-change-[transform,opacity]">
             Discover The Difference
           </span>

@@ -285,7 +285,7 @@ const Hero: React.FC = () => {
 
           <h2
             ref={aboutTextRef}
-            className="flex flex-wrap grayscale text-3xl font-medium leading-tight tracking-[-0.03em] sm:text-4xl"
+            className="flex flex-wrap grayscale text-[30px]  font-medium leading-tight tracking-[-0.03em] sm:text-4xl"
           >
             {splitTextToSpans(aboutWords)}
           </h2>
