@@ -83,7 +83,7 @@ const Map = () => {
             <div className="border-t border-[var(--border-light)] pt-5 sm:pt-6">
               <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
                 {/* Destination */}
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center justify-between w-full gap-4">
                   <div className="min-w-0">
                     <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-gray-400 sm:text-[10px] sm:tracking-[0.2em]">
                       Start exploring
