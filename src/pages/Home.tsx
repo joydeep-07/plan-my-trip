@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import Map from "../components/Map";
 import Service from "../components/Service";
+import TravelCards from "../components/TravelCards";
 import Why from "../components/Why";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
       <Service />
       <Map />
       <Why />
+      <TravelCards/>
     </div>
   );
 };
