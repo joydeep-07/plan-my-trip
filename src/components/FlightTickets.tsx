@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowRight, CalendarDays, MapPin, Search, Users } from "lucide-react";
 import {
   Autocomplete,
@@ -506,7 +506,7 @@ const FlightTickets = () => {
             <button
               type="button"
               onClick={handleSearch}
-              className="flex h-[72px] items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 active:scale-[0.98] lg:h-[72px]"
+              className="flex items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-semibold text-black transition-all hover:bg-neutral-200 active:scale-[0.98]"
             >
               <Search size={17} />
 
