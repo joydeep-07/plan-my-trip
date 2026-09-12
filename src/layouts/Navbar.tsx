@@ -1,9 +1,9 @@
-import { Info, Layers, Map, Phone } from "lucide-react";
+import { Layers, Map, Phone, LayoutDashboard } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navLinks = [
-    { label: "About", path: "/about", icon: Info },
+    { label: "About", path: "/about", icon: LayoutDashboard },
     { label: "Services", path: "/services", icon: Layers },
     { label: "Destinations", path: "/travel-packages", icon: Map },
     { label: "Contact", path: "/contact", icon: Phone },

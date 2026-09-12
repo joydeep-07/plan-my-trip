@@ -3,18 +3,18 @@ import Lenis from "lenis";
 
 const LenisScroll = () => {
   useEffect(() => {
+    // Enable Lenis only on desktop (1024px and above)
+    if (window.innerWidth < 1024) {
+      return;
+    }
+
     const lenis = new Lenis({
       duration: 0.85,
       smoothWheel: true,
-      syncTouch: true,
-
-      // Slightly faster scrolling
+      syncTouch: false,
       wheelMultiplier: 1.1,
-      touchMultiplier: 1.05,
-
+      touchMultiplier: 1,
       infinite: false,
-
-      // Smoother easing
       easing: (t) => 1 - Math.pow(1 - t, 4),
     });
 
