@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -19,6 +19,8 @@ const Hero: React.FC = () => {
   const heroImageRef = useRef<HTMLImageElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const aboutTextRef = useRef<HTMLHeadingElement | null>(null);
+
+  const [searchValue, setSearchValue] = useState("");
 
   const stats: StatItem[] = [
     { target: 200, suffix: "+", label: "Happy Customer" },
@@ -266,7 +268,7 @@ const Hero: React.FC = () => {
             </p>
 
             <div className="hero-search-wrapper transform-gpu will-change-[transform,opacity]">
-              <Search />
+              <Search value={searchValue} onChange={setSearchValue} />
             </div>
           </div>
         </div>

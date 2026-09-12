@@ -4,12 +4,18 @@ import Lenis from "lenis";
 const LenisScroll = () => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.85,
       smoothWheel: true,
       syncTouch: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1,
+
+      // Slightly faster scrolling
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.05,
+
       infinite: false,
+
+      // Smoother easing
+      easing: (t) => 1 - Math.pow(1 - t, 4),
     });
 
     let animationFrameId: number;

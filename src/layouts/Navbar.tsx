@@ -1,5 +1,4 @@
-import React from "react";
-import { Home, Info, Layers, Package, Map, Phone } from "lucide-react";
+import { Info, Layers, Map, Phone } from "lucide-react";
 
 const Navbar = () => {
   const navLinks = [

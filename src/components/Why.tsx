@@ -94,7 +94,7 @@ const Why: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative p-4 mb-25 w-screen h-[500px] overflow-hidden"
+      className="relative p-4 mb-16 md:mb-0 w-screen h-[500px] overflow-hidden"
     >
       <div className="absolute inset-4 overflow-hidden rounded-xl">
         <img
@@ -114,7 +114,7 @@ const Why: React.FC = () => {
           <span className="why-badge inline-block text-xs uppercase tracking-[3px] text-amber-300 font-semibold mb-2 transform-gpu will-change-[transform,opacity]">
             Discover The Difference
           </span>
-          <h2 className="why-title text-3xl sm:text-4xl font-serif font-bold tracking-tight mb-3 transform-gpu will-change-[transform,opacity]">
+          <h2 className="why-title font-heading text-3xl sm:text-6xl font-serif font-light tracking-tight mb-3 transform-gpu will-change-[transform,opacity]">
             Why Travel With Us?
           </h2>
           <p className="why-desc text-sm sm:text-base text-gray-100 leading-relaxed font-light max-w-2xl mx-auto mb-8 transform-gpu will-change-[transform,opacity]">
