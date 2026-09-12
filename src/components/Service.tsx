@@ -20,6 +20,7 @@ interface ServiceItem {
 
 const Service: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+
   const path1Ref = useRef<SVGRectElement | null>(null);
   const path2Ref = useRef<SVGRectElement | null>(null);
   const path3Ref = useRef<SVGRectElement | null>(null);
@@ -137,6 +138,7 @@ const Service: React.FC = () => {
         overflow-hidden
       "
     >
+      {/* SECTION TITLE */}
       <h2
         className="
           about-label
@@ -152,317 +154,533 @@ const Service: React.FC = () => {
         Our Services
       </h2>
 
-      <div className="flex flex-col gap-10">
-        {/* Row 1 */}
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Card 1 */}
+      {/* =====================================================
+          MOBILE + DESKTOP CONTAINER
+          Mobile  → One horizontal row
+          Desktop → Original 2 × 2 layout
+      ====================================================== */}
+
+      <div
+        className="
+          flex
+          flex-row
+          gap-4
+          overflow-x-auto
+          snap-x
+          snap-mandatory
+          scrollbar-hide
+
+          lg:grid
+          lg:grid-cols-7
+          lg:gap-6
+          lg:overflow-visible
+          lg:snap-none
+        "
+      >
+        {/* =====================================================
+            CARD 1
+        ====================================================== */}
+
+        <div
+          className="
+            flex
+            flex-col
+            flex-none
+
+            w-[78vw]
+            snap-start
+
+            lg:col-span-4
+            lg:w-auto
+
+            bg-[var(--bg-secondary)]
+            p-3
+            lg:p-4
+            rounded-2xl
+            border
+            border-[var(--border-light)]
+            relative
+            overflow-hidden
+          "
+        >
+          <svg
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              z-10
+              h-full
+              w-full
+              overflow-visible
+            "
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <rect
+              ref={path1Ref}
+              x="1.5"
+              y="1.5"
+              width="calc(100% - 3px)"
+              height="calc(100% - 3px)"
+              rx="16"
+              ry="16"
+              className="stroke-[var(--accent-primary)]"
+              strokeWidth="2"
+            />
+          </svg>
+
           <div
             className="
-              flex flex-col
-              w-full lg:w-4/7
-              bg-[var(--bg-secondary)]
-              p-4
-              rounded-2xl
-              border border-[var(--border-light)]
-              relative
-              overflow-hidden
+              flex
+              flex-col
+              space-y-1
+              mb-3
+              lg:mb-4
+              px-1
+              lg:px-2
             "
           >
-            <svg
-              className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-              fill="none"
-              preserveAspectRatio="none"
+            <span
+              className="
+                text-[10px]
+                lg:text-xs
+                font-medium
+                uppercase
+                tracking-widest
+                text-[var(--accent-primary)]
+              "
             >
-              <rect
-                ref={path1Ref}
-                x="1.5"
-                y="1.5"
-                width="calc(100% - 3px)"
-                height="calc(100% - 3px)"
-                rx="16"
-                ry="16"
-                className="stroke-[var(--accent-primary)]"
-                strokeWidth="2"
-              />
-            </svg>
+              {services[0].subtitle}
+            </span>
 
-            <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span
-                className="
-                  text-xs
-                  font-medium
-                  uppercase
-                  tracking-widest
-                  text-[var(--accent-primary)]
-                "
-              >
-                {services[0].subtitle}
-              </span>
+            <h3
+              className="
+                text-lg
+                lg:text-2xl
+                font-medium
+                tracking-tight
+                text-[var(--text-main)]
+              "
+            >
+              {services[0].title}
+            </h3>
 
-              <h3
-                className="
-                  text-xl md:text-2xl
-                  font-medium
-                  tracking-tight
-                  text-[var(--text-main)]
-                "
-              >
-                {services[0].title}
-              </h3>
-
-              <p
-                className="
-                  text-xs md:text-sm
-                  text-[var(--text-secondary)]
-                  font-light
-                  leading-relaxed
-                "
-              >
-                {services[0].description}
-              </p>
-            </div>
-
-            <div className="h-75 w-full rounded-xl overflow-hidden">
-              <img
-                src={services[0].image}
-                className={`h-full w-full object-cover ${services[0].imageObjectPosition}`}
-                alt={services[0].title}
-              />
-            </div>
+            <p
+              className="
+                text-[11px]
+                lg:text-sm
+                text-[var(--text-secondary)]
+                font-light
+                leading-relaxed
+              "
+            >
+              {services[0].description}
+            </p>
           </div>
 
-          {/* Card 2 */}
           <div
             className="
-              flex flex-col
-              w-full lg:w-3/7
-              bg-[var(--bg-secondary)]
-              p-4
-              rounded-2xl
-              border border-[var(--border-light)]
-              relative
+              h-40
+              lg:h-75
+              w-full
+              rounded-xl
               overflow-hidden
             "
           >
-            <svg
-              className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-              fill="none"
-              preserveAspectRatio="none"
-            >
-              <rect
-                ref={path2Ref}
-                x="1.5"
-                y="1.5"
-                width="calc(100% - 3px)"
-                height="calc(100% - 3px)"
-                rx="16"
-                ry="16"
-                className="stroke-[var(--accent-primary)]"
-                strokeWidth="2"
-              />
-            </svg>
-
-            <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span
-                className="
-                  text-xs
-                  font-medium
-                  uppercase
-                  tracking-widest
-                  text-[var(--accent-primary)]
-                "
-              >
-                {services[1].subtitle}
-              </span>
-
-              <h3
-                className="
-                  text-xl md:text-2xl
-                  font-medium
-                  tracking-tight
-                  text-[var(--text-main)]
-                "
-              >
-                {services[1].title}
-              </h3>
-
-              <p
-                className="
-                  text-xs md:text-sm
-                  text-[var(--text-secondary)]
-                  font-light
-                  leading-relaxed
-                "
-              >
-                {services[1].description}
-              </p>
-            </div>
-
-            <div className="h-75 w-full rounded-xl overflow-hidden">
-              <img
-                src={services[1].image}
-                className={`h-full w-full object-cover ${services[1].imageObjectPosition}`}
-                alt={services[1].title}
-              />
-            </div>
+            <img
+              src={services[0].image}
+              className={`
+                h-full
+                w-full
+                object-cover
+                ${services[0].imageObjectPosition}
+              `}
+              alt={services[0].title}
+            />
           </div>
         </div>
 
-        {/* Row 2 */}
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Card 3 */}
+        {/* =====================================================
+            CARD 2
+        ====================================================== */}
+
+        <div
+          className="
+            flex
+            flex-col
+            flex-none
+
+            w-[78vw]
+            snap-start
+
+            lg:col-span-3
+            lg:w-auto
+
+            bg-[var(--bg-secondary)]
+            p-3
+            lg:p-4
+            rounded-2xl
+            border
+            border-[var(--border-light)]
+            relative
+            overflow-hidden
+          "
+        >
+          <svg
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              z-10
+              h-full
+              w-full
+              overflow-visible
+            "
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <rect
+              ref={path2Ref}
+              x="1.5"
+              y="1.5"
+              width="calc(100% - 3px)"
+              height="calc(100% - 3px)"
+              rx="16"
+              ry="16"
+              className="stroke-[var(--accent-primary)]"
+              strokeWidth="2"
+            />
+          </svg>
+
           <div
             className="
-              flex flex-col
-              w-full lg:w-3/7
-              bg-[var(--bg-secondary)]
-              p-4
-              rounded-2xl
-              border border-[var(--border-light)]
-              relative
-              overflow-hidden
+              flex
+              flex-col
+              space-y-1
+              mb-3
+              lg:mb-4
+              px-1
+              lg:px-2
             "
           >
-            <svg
-              className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-              fill="none"
-              preserveAspectRatio="none"
+            <span
+              className="
+                text-[10px]
+                lg:text-xs
+                font-medium
+                uppercase
+                tracking-widest
+                text-[var(--accent-primary)]
+              "
             >
-              <rect
-                ref={path3Ref}
-                x="1.5"
-                y="1.5"
-                width="calc(100% - 3px)"
-                height="calc(100% - 3px)"
-                rx="16"
-                ry="16"
-                className="stroke-[var(--accent-primary)]"
-                strokeWidth="2"
-              />
-            </svg>
+              {services[1].subtitle}
+            </span>
 
-            <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span
-                className="
-                  text-xs
-                  font-medium
-                  uppercase
-                  tracking-widest
-                  text-[var(--accent-primary)]
-                "
-              >
-                {services[2].subtitle}
-              </span>
+            <h3
+              className="
+                text-lg
+                lg:text-2xl
+                font-medium
+                tracking-tight
+                text-[var(--text-main)]
+              "
+            >
+              {services[1].title}
+            </h3>
 
-              <h3
-                className="
-                  text-xl md:text-2xl
-                  font-medium
-                  tracking-tight
-                  text-[var(--text-main)]
-                "
-              >
-                {services[2].title}
-              </h3>
-
-              <p
-                className="
-                  text-xs md:text-sm
-                  text-[var(--text-secondary)]
-                  font-light
-                  leading-relaxed
-                "
-              >
-                {services[2].description}
-              </p>
-            </div>
-
-            <div className="h-75 w-full rounded-xl overflow-hidden">
-              <img
-                src={services[2].image}
-                className={`h-full w-full object-cover ${services[2].imageObjectPosition}`}
-                alt={services[2].title}
-              />
-            </div>
+            <p
+              className="
+                text-[11px]
+                lg:text-sm
+                text-[var(--text-secondary)]
+                font-light
+                leading-relaxed
+              "
+            >
+              {services[1].description}
+            </p>
           </div>
 
-          {/* Card 4 */}
           <div
             className="
-              flex flex-col
-              w-full lg:w-4/7
-              bg-[var(--bg-secondary)]
-              p-4
-              rounded-2xl
-              border border-[var(--border-light)]
-              relative
+              h-40
+              lg:h-75
+              w-full
+              rounded-xl
               overflow-hidden
             "
           >
-            <svg
-              className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-              fill="none"
-              preserveAspectRatio="none"
+            <img
+              src={services[1].image}
+              className={`
+                h-full
+                w-full
+                object-cover
+                ${services[1].imageObjectPosition}
+              `}
+              alt={services[1].title}
+            />
+          </div>
+        </div>
+
+        {/* =====================================================
+            CARD 3
+        ====================================================== */}
+
+        <div
+          className="
+            flex
+            flex-col
+            flex-none
+
+            w-[78vw]
+            snap-start
+
+            lg:col-span-3
+            lg:w-auto
+
+            bg-[var(--bg-secondary)]
+            p-3
+            lg:p-4
+            rounded-2xl
+            border
+            border-[var(--border-light)]
+            relative
+            overflow-hidden
+          "
+        >
+          <svg
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              z-10
+              h-full
+              w-full
+              overflow-visible
+            "
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <rect
+              ref={path3Ref}
+              x="1.5"
+              y="1.5"
+              width="calc(100% - 3px)"
+              height="calc(100% - 3px)"
+              rx="16"
+              ry="16"
+              className="stroke-[var(--accent-primary)]"
+              strokeWidth="2"
+            />
+          </svg>
+
+          <div
+            className="
+              flex
+              flex-col
+              space-y-1
+              mb-3
+              lg:mb-4
+              px-1
+              lg:px-2
+            "
+          >
+            <span
+              className="
+                text-[10px]
+                lg:text-xs
+                font-medium
+                uppercase
+                tracking-widest
+                text-[var(--accent-primary)]
+              "
             >
-              <rect
-                ref={path4Ref}
-                x="1.5"
-                y="1.5"
-                width="calc(100% - 3px)"
-                height="calc(100% - 3px)"
-                rx="16"
-                ry="16"
-                className="stroke-[var(--accent-primary)]"
-                strokeWidth="2"
-              />
-            </svg>
+              {services[2].subtitle}
+            </span>
 
-            <div className="flex flex-col space-y-1.5 mb-4 px-2">
-              <span
-                className="
-                  text-xs
-                  font-medium
-                  uppercase
-                  tracking-widest
-                  text-[var(--accent-primary)]
-                "
-              >
-                {services[3].subtitle}
-              </span>
+            <h3
+              className="
+                text-lg
+                lg:text-2xl
+                font-medium
+                tracking-tight
+                text-[var(--text-main)]
+              "
+            >
+              {services[2].title}
+            </h3>
 
-              <h3
-                className="
-                  text-xl md:text-2xl
-                  font-medium
-                  tracking-tight
-                  text-[var(--text-main)]
-                "
-              >
-                {services[3].title}
-              </h3>
+            <p
+              className="
+                text-[11px]
+                lg:text-sm
+                text-[var(--text-secondary)]
+                font-light
+                leading-relaxed
+              "
+            >
+              {services[2].description}
+            </p>
+          </div>
 
-              <p
-                className="
-                  text-xs md:text-sm
-                  text-[var(--text-secondary)]
-                  font-light
-                  leading-relaxed
-                "
-              >
-                {services[3].description}
-              </p>
-            </div>
+          <div
+            className="
+              h-40
+              lg:h-75
+              w-full
+              rounded-xl
+              overflow-hidden
+            "
+          >
+            <img
+              src={services[2].image}
+              className={`
+                h-full
+                w-full
+                object-cover
+                ${services[2].imageObjectPosition}
+              `}
+              alt={services[2].title}
+            />
+          </div>
+        </div>
 
-            <div className="h-75 w-full rounded-xl overflow-hidden">
-              <img
-                src={services[3].image}
-                className={`h-full w-full object-cover ${services[3].imageObjectPosition}`}
-                alt={services[3].title}
-              />
-            </div>
+        {/* =====================================================
+            CARD 4
+        ====================================================== */}
+
+        <div
+          className="
+            flex
+            flex-col
+            flex-none
+
+            w-[78vw]
+            snap-start
+
+            lg:col-span-4
+            lg:w-auto
+
+            bg-[var(--bg-secondary)]
+            p-3
+            lg:p-4
+            rounded-2xl
+            border
+            border-[var(--border-light)]
+            relative
+            overflow-hidden
+          "
+        >
+          <svg
+            className="
+              pointer-events-none
+              absolute
+              inset-0
+              z-10
+              h-full
+              w-full
+              overflow-visible
+            "
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <rect
+              ref={path4Ref}
+              x="1.5"
+              y="1.5"
+              width="calc(100% - 3px)"
+              height="calc(100% - 3px)"
+              rx="16"
+              ry="16"
+              className="stroke-[var(--accent-primary)]"
+              strokeWidth="2"
+            />
+          </svg>
+
+          <div
+            className="
+              flex
+              flex-col
+              space-y-1
+              mb-3
+              lg:mb-4
+              px-1
+              lg:px-2
+            "
+          >
+            <span
+              className="
+                text-[10px]
+                lg:text-xs
+                font-medium
+                uppercase
+                tracking-widest
+                text-[var(--accent-primary)]
+              "
+            >
+              {services[3].subtitle}
+            </span>
+
+            <h3
+              className="
+                text-lg
+                lg:text-2xl
+                font-medium
+                tracking-tight
+                text-[var(--text-main)]
+              "
+            >
+              {services[3].title}
+            </h3>
+
+            <p
+              className="
+                text-[11px]
+                lg:text-sm
+                text-[var(--text-secondary)]
+                font-light
+                leading-relaxed
+              "
+            >
+              {services[3].description}
+            </p>
+          </div>
+
+          <div
+            className="
+              h-40
+              lg:h-75
+              w-full
+              rounded-xl
+              overflow-hidden
+            "
+          >
+            <img
+              src={services[3].image}
+              className={`
+                h-full
+                w-full
+                object-cover
+                ${services[3].imageObjectPosition}
+              `}
+              alt={services[3].title}
+            />
           </div>
         </div>
       </div>
+
+      {/* Hide scrollbar only */}
+      <style>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 };
