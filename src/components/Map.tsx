@@ -1,12 +1,13 @@
 // import React from 'react'
 
 import { MapPin, Navigation } from "lucide-react";
+import Globe from "./Globe";
 
 const Map = () => {
   return (
     <div className="flex item-center justify-center px-4 h-140 gap-4 bg-[var(--bg-main)] py-10">
       <div className="right border border-[var(--border-light)] rounded-xl w-4/7 flex items-center justify-center uppercase ">
-        Globe
+        <Globe/>
       </div>
       <div className="w-3/7 p-8">
         <div className="flex h-full flex-col justify-between">
