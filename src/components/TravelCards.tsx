@@ -42,7 +42,7 @@ const TravelCards = () => {
           max-w-[1600px]
           mx-auto
           overflow-hidden
-          rounded-t-[40px]
+          rounded-2xl
           sm:rounded-2xl
           border border-neutral-800
           bg-black

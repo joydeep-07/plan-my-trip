@@ -224,7 +224,7 @@ const Hero: React.FC = () => {
       ref={containerRef}
       className="
         w-full mx-auto
-        px-3 md:px-4
+        px-2 md:px-4
         py-3 md:py-4
         font-sans
         bg-[var(--bg-main)]
@@ -398,7 +398,7 @@ const Hero: React.FC = () => {
             className="
               flex flex-wrap
               grayscale
-              text-[30px]
+              text-[30px] p-1 md:p-0
               font-medium
               leading-tight
               tracking-[-0.03em]

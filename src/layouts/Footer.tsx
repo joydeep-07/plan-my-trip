@@ -3,9 +3,9 @@ import img from "../assets/images/beach.jpg";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-white px-4 py-6">
+    <footer className="w-full bg-white  px-2 md:px-4 py-4 pb-21 md:pb-0">
       {/* CTA Banner */}
-      <div className="relative w-full h-[500px] rounded-3xl overflow-hidden flex flex-col items-center justify-center text-center p-6 shadow-md">
+      <div className="relative w-full md:h-[500px] md:rounded-3xl rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center p-6 shadow-md">
         <img
           src={img}
           className="absolute inset-0 w-full h-full object-cover object-top"
@@ -19,7 +19,7 @@ const Footer = () => {
             Your next journey starts here
           </p>
 
-          <h2 className="text-3xl md:text-5xl font-light text-white tracking-tight leading-snug mb-8">
+          <h2 className="text-xl md:text-5xl font-light text-white tracking-tight leading-snug mb-8">
             Don't wait any longer! Start your adventure and explore new
             experiences today
           </h2>
@@ -40,7 +40,7 @@ const Footer = () => {
       </div>
 
       {/* Premium Footer */}
-      <div className="mt-6 rounded-3xl bg-[#f5f5f2] px-6 md:px-10 lg:px-14 pt-12 pb-7">
+      <div className="mt-6 md:rounded-3xl rounded-2xl bg-[#f5f5f2] px-6 md:px-10 lg:px-14 pt-12 pb-7">
         {/* Top Footer */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 lg:gap-16">
           {/* Brand */}
@@ -50,8 +50,8 @@ const Footer = () => {
             </h3>
 
             <p className="mt-4 text-sm leading-7 text-neutral-500">
-              Plan meaningful journeys, discover beautiful places, and turn
-              your travel ideas into experiences worth remembering.
+              Plan meaningful journeys, discover beautiful places, and turn your
+              travel ideas into experiences worth remembering.
             </p>
 
             <p className="mt-5 text-xs uppercase tracking-[0.2em] text-neutral-400">
@@ -164,24 +164,15 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-5 text-xs text-neutral-500">
-            <a
-              href="#terms"
-              className="hover:text-black transition-colors"
-            >
+            <a href="#terms" className="hover:text-black transition-colors">
               Terms
             </a>
 
-            <a
-              href="#privacy"
-              className="hover:text-black transition-colors"
-            >
+            <a href="#privacy" className="hover:text-black transition-colors">
               Privacy
             </a>
 
-            <a
-              href="#contact"
-              className="hover:text-black transition-colors"
-            >
+            <a href="#contact" className="hover:text-black transition-colors">
               Contact
             </a>
           </div>
@@ -190,7 +181,7 @@ const Footer = () => {
         {/* Large Brand Text */}
         <div className="mt-10 overflow-hidden">
           <h2 className="text-[14vw] md:text-[11vw] lg:text-[9vw] leading-[0.75] font-semibold tracking-[-0.07em] text-neutral-200 text-center select-none">
-           MAKE MY TRIP
+            MAKE MY TRIP
           </h2>
         </div>
       </div>

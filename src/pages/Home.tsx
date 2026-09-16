@@ -12,8 +12,10 @@ const Home = () => {
       <Service />
       <Why />
       <Map />
-      <TravelCards/>
-      <Packages/>
+      <div className="px-2 md:px-0">
+        <TravelCards />
+      </div>
+      <Packages />
     </div>
   );
 };

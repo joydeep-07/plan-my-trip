@@ -80,7 +80,7 @@ const ServiceBanner: React.FC = () => {
   );
 
   return (
-    <section ref={containerRef} className="w-full px-4 py-6">
+    <section ref={containerRef} className="w-full px-2 md:px-4 py-6">
       <div
         ref={bannerRef}
         className="
