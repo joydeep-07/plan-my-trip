@@ -290,7 +290,7 @@ const TrainTicketCard = () => {
                     Name
                   </p>
                   <p className="text-xs sm:text-sm font-bold text-slate-800 mt-0.5 truncate">
-                    Soumika Paul
+                    Soumika Maji
                   </p>
                 </div>
 
@@ -307,7 +307,7 @@ const TrainTicketCard = () => {
                     Email
                   </p>
                   <p className="text-xs sm:text-sm font-bold text-slate-800 mt-0.5 ">
-                    soumikapaul@gmail.com
+                    soumikamaji2005@gmail.com
                   </p>
                 </div>
               </div>
