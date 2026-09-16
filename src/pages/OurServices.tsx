@@ -1,8 +1,11 @@
+import ServiceBanner from "../components/ServiceBanner"
 
 
 const OurServices = () => {
   return (
-    <div>OurServices</div>
+    <div>
+      <ServiceBanner/>
+    </div>
   )
 }
 
