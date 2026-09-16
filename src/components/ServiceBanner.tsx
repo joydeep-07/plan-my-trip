@@ -1,11 +1,88 @@
-// import React from "react";
+import React, { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
 import plane from "../assets/images/plane.png";
 
-const ServiceBanner = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+const ServiceBanner: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const bannerRef = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      gsap.config({ force3D: true });
+
+      // Initial setup for the left side text and CTA elements only
+      gsap.set(".banner-eyebrow", { y: 20, opacity: 0 });
+      gsap.set(".banner-title-line", { yPercent: 150 });
+      gsap.set(".banner-desc", { y: 25, opacity: 0 });
+      gsap.set(".banner-cta", { y: 25, opacity: 0 });
+      gsap.set(".banner-step", { x: -20, opacity: 0 });
+
+      // Entrance Timeline for left content only
+      const bannerTl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: {
+          trigger: bannerRef.current,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      bannerTl
+        .to(".banner-eyebrow", {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+        })
+        .to(
+          ".banner-title-line",
+          {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.12,
+          },
+          "-=0.4",
+        )
+        .to(
+          ".banner-step",
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+          },
+          "-=0.6",
+        )
+        .to(
+          ".banner-desc",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.5",
+        )
+        .to(
+          ".banner-cta",
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+          },
+          "-=0.5",
+        );
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <section className="w-full px-4 py-6">
+    <section ref={containerRef} className="w-full px-4 py-6">
       <div
+        ref={bannerRef}
         className="
           relative mx-auto w-full
           h-[260px] sm:h-[350px] md:h-[450px]
@@ -111,6 +188,7 @@ const ServiceBanner = () => {
               {/* Step 1 */}
               <div
                 className="
+                  banner-step
                   relative z-10
                   flex h-7 w-7
                   items-center justify-center
@@ -128,6 +206,7 @@ const ServiceBanner = () => {
               {/* Step 2 */}
               <div
                 className="
+                  banner-step
                   relative z-10
                   flex h-7 w-7
                   items-center justify-center
@@ -146,6 +225,7 @@ const ServiceBanner = () => {
               {/* Step 3 */}
               <div
                 className="
+                  banner-step
                   relative z-10
                   flex h-7 w-7
                   items-center
@@ -168,6 +248,7 @@ const ServiceBanner = () => {
               {/* Eyebrow */}
               <p
                 className="
+                  banner-eyebrow
                   mb-2 sm:mb-3
                   text-[7px] sm:text-[9px]
                   font-semibold
@@ -191,14 +272,20 @@ const ServiceBanner = () => {
                   text-[#111820]
                 "
               >
-                Your Next Adventure
-                <br />
-                Starts Here.
+                <span className="block overflow-hidden pb-1">
+                  <span className="banner-title-line block">
+                    Your Next Adventure
+                  </span>
+                </span>
+                <span className="block overflow-hidden pb-1">
+                  <span className="banner-title-line block">Starts Here.</span>
+                </span>
               </h1>
 
               {/* Description */}
               <p
                 className="
+                  banner-desc
                   mt-2 sm:mt-4
                   max-w-[190px] sm:max-w-[290px]
                   text-[9px] sm:text-xs
@@ -211,49 +298,48 @@ const ServiceBanner = () => {
               </p>
 
               {/* CTA */}
-              <button
-                type="button"
-                className="
-                  group
-
-                  max-w-[150px]
-                  mt-3 sm:mt-5
-                  inline-flex w-full sm:w-auto
-                  items-center
-                  justify-center sm:justify-start
-                  gap-3
-                  rounded-full
-                  bg-[#111820]
-                  px-4 sm:px-5
-                  py-2 sm:py-2.5
-                  text-[10px] sm:text-[10px]
-                  font-semibold
-                  text-white
-                  shadow-[0_8px_25px_rgba(17,24,32,0.15)]
-                  transition-all
-                  duration-300
-                  hover:-translate-y-0.5
-                  hover:shadow-[0_12px_30px_rgba(17,24,32,0.2)]
-                "
-              >
-                Plan Your Trip
-                <span
+              <div className="banner-cta">
+                <button
+                  type="button"
                   className="
-                    flex h-5 w-5
+                    group
+                    max-w-[150px]
+                    mt-3 sm:mt-5
+                    inline-flex w-full sm:w-auto
                     items-center
-                    justify-center
+                    justify-center sm:justify-start
+                    gap-3
                     rounded-full
-                    bg-white/10
-                    transition-transform
+                    bg-[#111820]
+                    px-4 sm:px-5
+                    py-2 sm:py-2.5
+                    text-[10px] sm:text-[10px]
+                    font-semibold
+                    text-white
+                    shadow-[0_8px_25px_rgba(17,24,32,0.15)]
+                    transition-all
                     duration-300
-                    group-hover:translate-x-0.5
+                    hover:-translate-y-0.5
+                    hover:shadow-[0_12px_30px_rgba(17,24,32,0.2)]
                   "
                 >
-                  <ArrowRight size={11} strokeWidth={2} />
-                </span>
-              </button>
-
-              
+                  Plan Your Trip
+                  <span
+                    className="
+                      flex h-5 w-5
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-white/10
+                      transition-transform
+                      duration-300
+                      group-hover:translate-x-0.5
+                    "
+                  >
+                    <ArrowRight size={11} strokeWidth={2} />
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -286,9 +372,6 @@ const ServiceBanner = () => {
             "
           />
         </div>
-
-    
-      
 
         {/* ================= BOTTOM CLOUD ================= */}
         <div
