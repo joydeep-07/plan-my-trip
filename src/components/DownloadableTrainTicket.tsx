@@ -107,7 +107,7 @@ export const DownloadableTrainTicket = forwardRef<
             <p className="text-[11px] text-slate-400 font-medium mb-0.5">
               Departure
             </p>
-            <h3 className="text-2xl font-semibold text-slate-900 tracking-tight">
+            <h3 className="text-2xl font-semibold text-slate-900 tracking-wide">
               {ticket.departureTime}
             </h3>
             <p className="text-[11px] text-slate-500 font-medium">
@@ -138,7 +138,7 @@ export const DownloadableTrainTicket = forwardRef<
             <p className="text-[11px] text-slate-400 font-medium mb-0.5">
               Arrival
             </p>
-            <h3 className="text-2xl font-semibold text-slate-900 tracking-tight">
+            <h3 className="text-2xl font-semibold text-slate-900 tracking-wide">
               {ticket.arrivalTime}
             </h3>
             <p className="text-[11px] text-slate-500 font-medium">
