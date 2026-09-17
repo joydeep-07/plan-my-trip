@@ -188,7 +188,7 @@ export const DownloadableTrainTicket = forwardRef<
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <div className="flex items-start space-x-2.5">
-              <User className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+              <User className="w-2.5 h-2.5 text-slate-400 mt-0.5 shrink-0" />
               <div>
                 <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold">
                   Passenger Name
@@ -200,7 +200,7 @@ export const DownloadableTrainTicket = forwardRef<
             </div>
 
             <div className="flex items-start space-x-2.5">
-              <Ticket className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+              <Ticket className="w-2.5 h-2.5 text-slate-400 mt-0.5 shrink-0" />
               <div>
                 <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold">
                   PNR Number
@@ -213,7 +213,7 @@ export const DownloadableTrainTicket = forwardRef<
           </div>
 
           <div className="flex items-start space-x-2.5">
-            <Mail className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+            <Mail className="w-2.5 h-2.5 text-slate-400 mt-0.5 shrink-0" />
             <div className="overflow-hidden">
               <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold">
                 Email
@@ -227,19 +227,19 @@ export const DownloadableTrainTicket = forwardRef<
 
         {/* Coach / Berth Grid */}
         <div className="grid grid-cols-2 gap-2 my-3">
-          <div className="bg-slate-50 rounded-lg p-2 text-center border border-slate-100">
+          <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
             <p className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
               Coach
             </p>
-            <p className="text-sm font-semibold text-slate-900">
+            <p className="text-[12px] font-semibold text-slate-900">
               {ticket.coach}
             </p>
           </div>
-          <div className="bg-slate-50 rounded-lg p-2 text-center border border-slate-100">
-            <p className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
+          <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
+            <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
               Berth
             </p>
-            <p className="text-sm font-semibold text-slate-900">
+            <p className="text-[12px] font-semibold text-slate-900">
               {ticket.berth}
             </p>
           </div>
