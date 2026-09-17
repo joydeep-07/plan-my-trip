@@ -156,7 +156,7 @@ export const DownloadableTrainTicket = forwardRef<
             <Info className="w-4 h-4" />
           </div>
 
-          <p className="text-[8px] text-amber-800 leading-tight">
+          <p className="text-[8px] text-amber-700 leading-tight">
             This ticket is generated for demonstration purposes only and does
             not constitute a valid travel document or proof of reservation.
           </p>
@@ -226,21 +226,34 @@ export const DownloadableTrainTicket = forwardRef<
         </div>
 
         {/* Coach / Berth Grid */}
-        <div className="grid grid-cols-2 gap-2 my-3">
-          <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
-            <p className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
-              Coach
-            </p>
-            <p className="text-[12px] font-semibold text-slate-900">
-              {ticket.coach}
-            </p>
+        <div className="">
+          <div className="grid grid-cols-2 gap-2 my-3">
+            <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
+              <p className="text-[9px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
+                Coach
+              </p>
+              <p className="text-[12px] font-semibold text-slate-900">
+                {ticket.coach}
+              </p>
+            </div>
+            <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
+              <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
+                Berth
+              </p>
+              <p className="text-[12px] font-semibold text-slate-900">
+                {ticket.berth}
+              </p>
+            </div>
           </div>
-          <div className="bg-slate-50 rounded-sm p-2 text-center border border-slate-100">
-            <p className="text-[8px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
-              Berth
-            </p>
-            <p className="text-[12px] font-semibold text-slate-900">
-              {ticket.berth}
+
+          <div className="flex items-center gap-2 justify-start">
+            <div className="text-amber-600 shrink-0">
+              <Info className="w-4 h-4" />
+            </div>
+
+            <p className="text-[6px] text-left tracking-wide text-amber-700">
+              This ticket does not constitute a valid travel <br /> document or
+              proof of reservation.
             </p>
           </div>
         </div>
