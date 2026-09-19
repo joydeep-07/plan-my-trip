@@ -17,6 +17,7 @@
     "@mui/material": "^9.4.0",
     "@mui/x-date-pickers": "^9.13.0",
     "@react-google-maps/api": "^2.20.8",
+    "@react-pdf/renderer": "^4.9.0",
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.3.3",
     "@types/three": "^0.186.0",

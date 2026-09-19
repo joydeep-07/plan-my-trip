@@ -70,28 +70,55 @@ const handleDownloadPdf = async () => {
   try {
     const element = downloadTicketRef.current;
 
+    // Render at very high resolution.
+    // The ticket is 900px wide, so 4x gives a 3600px-wide source image.
     const canvas = await html2canvas(element, {
-      scale: 2,
+      scale: 4,
       useCORS: true,
+      allowTaint: false,
       logging: false,
       backgroundColor: "#ffffff",
+      imageTimeout: 15000,
+      removeContainer: true,
     });
 
-    const imgData = canvas.toDataURL("image/jpeg", 0.98);
+    // PNG is lossless.
+    // Do NOT use JPEG for a document containing text and borders.
+    const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: "a4",
+      compress: true,
     });
 
     const pageWidth = pdf.internal.pageSize.getWidth();
-    const margin = 10; // Left and right margin in mm
-    const printableWidth = pageWidth - margin * 2;
-    const printableHeight = (canvas.height * printableWidth) / canvas.width;
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-    // Center it vertically with a small top offset (e.g., 15mm)
-    pdf.addImage(imgData, "JPEG", margin, 10, printableWidth, printableHeight);
+    const margin = 10;
+
+    const printableWidth = pageWidth - margin * 2;
+    const printableHeight = pageHeight - margin * 2;
+
+    // Preserve exact aspect ratio.
+    const canvasRatio = canvas.width / canvas.height;
+
+    let pdfWidth = printableWidth;
+    let pdfHeight = pdfWidth / canvasRatio;
+
+    // Prevent the ticket from overflowing vertically.
+    if (pdfHeight > printableHeight) {
+      pdfHeight = printableHeight;
+      pdfWidth = pdfHeight * canvasRatio;
+    }
+
+    // Center ticket on the page.
+    const x = (pageWidth - pdfWidth) / 2;
+    const y = (pageHeight - pdfHeight) / 2;
+
+    pdf.addImage(imgData, "PNG", x, y, pdfWidth, pdfHeight, undefined, "FAST");
+
     pdf.save(`Train_Ticket_${ticket.pnr}.pdf`);
   } catch (error) {
     console.error("Failed to download PDF:", error);
